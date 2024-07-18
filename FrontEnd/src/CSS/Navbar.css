@@ -1,0 +1,38 @@
+.navbarBox{
+    padding: 5px;
+    height: 55px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 25px;
+    font-weight: 700;
+    /* background-color: orange; */
+    align-items: center;
+}
+.navbarBox a{
+    text-decoration: none;
+
+}
+
+.logoutIcon{
+    display: flex;
+    gap: 10%;    
+    border: 1px solid black;
+    position: relative;
+    align-items: center;
+    margin-right: 14px;
+}
+
+.navbarBox>a:visited{
+    color: white;
+}
+.navbarBox a:hover{
+    color: aqua;
+}
+
+.navbarBox a:active{
+    color: black;
+}
+.navbarBox a::selection{
+    color: yellow;
+    background-color: black;
+}

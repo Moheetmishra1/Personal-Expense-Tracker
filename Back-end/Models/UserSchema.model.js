@@ -1,0 +1,38 @@
+const {Schema, model} = require("mongoose")
+
+const userSchema =new Schema({
+    fname:{
+        require:[true,"First name is Mandantory"],
+        type:String ,
+    },
+    lname:{
+       default:"",
+        type:String ,
+    },
+    password:{
+        require:[true, "Password is Mandantory"],
+        type:String,        
+    }
+    ,
+    email:{
+        require:[true,"Email is Manadatory"],
+        type:String 
+    },
+    mobile:{
+        require:[true,"Mobile is Mandatory"],
+        type:Number
+    },
+    dob:{
+        required:{message:"D.O.B is Mandatory"},
+        type:String
+    },
+    gender:{require:[true,"Gender is Mandatory"],
+        type:String
+    }
+
+    
+
+},{timestamps:true});
+
+
+module.exports = model("userSchema",userSchema)

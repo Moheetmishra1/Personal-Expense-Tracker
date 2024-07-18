@@ -1,0 +1,94 @@
+
+
+.kalnia-glaze-signHeading {
+  font-family: "Kalnia Glaze", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-size: 80px;
+  /* font-style: bolder; */
+  letter-spacing: 1px;
+  font-variation-settings:"wdth" 100;
+}
+
+.signupBox{
+    height: 85vh;
+    display: grid;
+    grid-template-columns: 2fr 4fr;
+}
+
+.signupDesign{
+    height: 92vh;
+    background-color: white;
+    border-start-start-radius: 5%;
+    border-end-start-radius: 5%;
+    border: 5px solid green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signupOuterForm{
+    
+    width: 700px;
+    /* padding: 50px; */
+/* border: 4px dotted violet; */
+
+}
+
+.signupForm{
+    height: 450px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.signName{
+    display: flex;
+    gap: 10%;
+}
+
+.signupOuterForm>h1{
+    background: url("../assets/Images/christian-ladewig-FD-gzGKS5sY-unsplash+1.jpg");
+    background-size: 100%;
+    background-position: 50% 80%;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip:calc();
+}
+
+.signName>div{
+    display: flex;
+    flex-direction: column;
+}
+
+.signInputBox{
+    height: 30px;
+    padding: 4px;
+    width: 200px;
+    border-bottom: 2px solid blue;
+    border-radius: 5px;
+    margin-left: 8px;
+    border-top: none;
+
+}
+.signupForm div{
+    position: relative;
+}
+
+.oninput{
+    position: absolute;
+    font-size: 10px;
+    left: 19px;
+    top: -6px;
+    background-color: rgba(255, 255, 255, 0.059);
+    margin: 0px;
+    padding: 0px;
+}
+.gender{
+    display: flex;
+    justify-content: space-between;
+    gap:5px;
+    align-items: center;
+}
+
