@@ -3,7 +3,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 
-function Authentication(children) {
+function Authentication({children}) {
     let {islogin} = useSelector((store)=>store.cart)
 
     if (islogin) {

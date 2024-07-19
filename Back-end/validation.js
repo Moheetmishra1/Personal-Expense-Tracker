@@ -2,7 +2,7 @@
 function nameCheck(nam){
     const nValid = /[a-zA-Z]/g  
 
-    return !nam ? "Name is Mandantory." :(typeof nam !== "string")? "Name must be in the form of string" : !nValid.test(nam.trim()) ? "Only alphabet allows." :"";
+    return !nam ? "Name is Mandantory." :(typeof nam !== "string")? "Name must be in the form of string" : !nValid.test(nam.trim()) ? "Only alphabet allows in name." :"";
 }
 
 function emailCheck(Email){

@@ -1,13 +1,12 @@
 import React from 'react'
 
-function InputComponent({type,placeholder,Name,value,className,id}) {
+function InputComponent({type,Name,className,id ,changeUser, ref}) {
     
   return (
     <>
 
     
-    
-    <input type={type} placeholder={placeholder} name={Name} value={value} className={className} id={id} />
+    <input type={type}  name={Name}  className={className} ref={ref} id={id} onKeyUp={changeUser} />
 
     </>
   )

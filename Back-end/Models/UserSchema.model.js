@@ -1,11 +1,11 @@
 const {Schema, model} = require("mongoose")
 
 const userSchema =new Schema({
-    fname:{
+    first:{
         require:[true,"First name is Mandantory"],
         type:String ,
     },
-    lname:{
+    last:{
        default:"",
         type:String ,
     },

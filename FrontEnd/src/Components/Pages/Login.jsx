@@ -1,33 +1,102 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import "../../CSS/Login.css"
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useStateUpdateHook } from '../../Helper/useStateUpdate'
+import { emailCheck, nameCheck, numberCheck, passwordCheck } from '../../validation';
+import {useDispatch} from "react-redux";
+import axios from 'axios';
+import { login } from '../../../Redux/React_Slice/expense.reduxSlice';
+
 
 function Login() {
+  
+  let [user,setUser] = useStateUpdateHook({username:"",password:""});
+  let loginError= useRef("")
+  let dispatch= useDispatch()
+  let navToHome= useNavigate()
+  let showPassword= useRef("Not refer.")
+  
+
+  function passwordShow(){
+    if(showPassword.current.type==="password"){
+        showPassword.current.type = "type"
+    }else{
+      showPassword.current.type = "password"
+    }
+  }
+
+  async function sendDetails(e){
+    e.preventDefault()
+
+    loginError.current.innerHTML=""
+    loginError.current.style="color:red"
+
+    let email,mobile,err;
+    if(Number(user.username)==="NaN"){
+      mobile=user.username
+      err= numberCheck(mobile);
+    }else{
+      email= user.username
+      err= emailCheck(email)
+    }
+
+    if(err){
+      return  loginError.current.innerHTML=err
+    }
+     err= passwordCheck(user.password)
+     if(err){
+      return  loginError.current.innerHTML=err
+    }
+
+      try{
+        let {data}= await axios.post("http://localhost:4044/api/v1/login",user)
+        // console.log(message);
+        if(data.error){
+            loginError.current.innerHTML=data.message
+        }else{
+        loginError.current.innerHTML="Login successfully"
+        loginError.current.style="color:green"
+        // console.log(data);
+        user=data.data
+       await dispatch(login(user))
+        navToHome("/")
+
+        }
+
+
+      }catch(err){
+        console.log(err);
+      }
+      } 
+console.log(user);
+
+
+
   return (
     <div className='loginBox'>
 
+<img className="img-fluid mx-auto d-block mb-5" src="https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/assets/images/elements/bootstrap-logo.svg" alt="" />
+<span  className="loginError"  ref={loginError}></span>
+      <div className="loginformBox">
 
-<div class="container container--mini" style={{backgroundColor:"white",height:"100%",padding:"10%",borderRadius:"10px"}}>
-        <img class="img-fluid mx-auto d-block mb-5" src="https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/assets/images/elements/bootstrap-logo.svg" alt="" />
-        <form name="loginform" id="loginform" action="https://themes.getbootstrap.com/wp-login.php" method="post" style={{width:"60%",margin:"-5% auto"}}>
+        <form action="POST"  className='loginForm'  onSubmit={sendDetails} >
+          <div>
+          <label htmlFor="username">Username</label>
+          <input type="text" id="username" name="username" onChange={setUser}  />
+          </div>
 
-        <div class="form-group">
-            <label for="user_login">Email</label>
-            <input type="text" name="email" id="user_login" class="form-control"  />
-        </div>
-        <div class="form-group">
-            <label for="user_pass">Password</label>
-            {/* <a class="form-sublink" href="https://themes.getbootstrap.com/my-account/lost-password/">Forgot password?</a> */}
-            <input type="password" name="password" id="user_pass" class="form-control"  />
-        </div>
+          <div>
+            <label htmlFor="password">Password</label>
+            <input type="password" id='password' name="password"  onChange={setUser} ref={showPassword} />
+          </div>
+        <p className="login-remember"><label><input  type="checkbox"  value="forever" onClick={passwordShow} /> show</label></p>
 
-        <p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Remember Me</label></p>
-        <div class="form-group">
-          <input type="submit" name="wp-submit" id="wp-submit" class="btn btn-brand btn-block mb-4" value="Sign In" />
-    </div>
+          <button className='loginSubmit' >Submit</button>
+        </form>
+        <p className="">Don't have an account yet? <NavLink to="/signup">Sign up</NavLink></p>
+      </div>
 
-    </form>
-    <p class="small text-center text-gray-soft">Don't have an account yet? <a href="https://themes.getbootstrap.com/my-account/">Sign up</a></p>
-</div>
+
 
 
 
