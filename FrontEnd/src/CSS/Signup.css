@@ -11,17 +11,18 @@
 }
 
 .signupBox{
-    height: 85vh;
+    height: 80vh;
     display: grid;
     grid-template-columns: 2fr 4fr;
+    border: 1px solid black;
 }
 
 .signupDesign{
-    height: 92vh;
+    height: 90vh;
     background-color: white;
     border-start-start-radius: 5%;
     border-end-start-radius: 5%;
-    border: 5px solid green;
+    /* border: 5px solid green; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,10 +38,13 @@
 
 .signupForm{
     height: 450px;
-    width: 400px;
+    width: 800px;
+    padding: 15px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
+    /* border: 1px solid black; */
 }
 
 .signName{
@@ -63,14 +67,17 @@
 }
 
 .signInputBox{
-    height: 30px;
+    height: 35px;
     padding: 4px;
-    width: 200px;
+    width: 300px;
     border-bottom: 2px solid blue;
     border-radius: 5px;
     margin-left: 8px;
-    border-top: none;
+    border: none;
 
+}
+.signInputBox:focus{
+    border: none;
 }
 .signupForm div{
     position: relative;
@@ -87,8 +94,34 @@
 }
 .gender{
     display: flex;
-    justify-content: space-between;
-    gap:5px;
+    /* justify-content: ; */
+    gap:10%;
     align-items: center;
 }
 
+.signupContent{
+    position: relative;
+}
+.signupContent>div{
+    height: 100%;
+    width: 700px;
+    position: absolute;
+    z-index: -1;
+    /* background-image: url("../assets/Imag es/wallet.jpg"); */
+    background-size: 90% 100%;
+    background-repeat: no-repeat;
+    background-position: -30px 0px;
+}
+
+.signupd{
+    height: 85%;
+    width: 700px;
+    position: absolute;
+    z-index: 2;
+    left: 6%;
+
+    background-image: url("../assets/Images/3d-render-online-payment-transaction-security.png");
+    background-size: 90% 80%;
+    background-repeat: no-repeat;
+    background-position: 30px 60px;
+}
