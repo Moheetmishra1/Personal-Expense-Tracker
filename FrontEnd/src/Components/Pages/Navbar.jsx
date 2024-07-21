@@ -22,7 +22,7 @@ function Navbar() {
         {islogin && <div className="logoutIcon">
             
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" style={{borderRadius:"100%"}} />
-            <button  className='logout' onClick={()=>{console.log("start");  dispatchLogout(logout())}}>  Sign Out </button>
+            <button  className='logout' onClick={()=>{console.log("start");sessionStorage.clear();  dispatchLogout(logout())}}>  Sign Out </button>
             
 
             {/* <button href="sign-up.html" class="btn btn-sm btn-light mb-0"><i class="bi bi-person-circle me-1"></i>Sign up</button> */}

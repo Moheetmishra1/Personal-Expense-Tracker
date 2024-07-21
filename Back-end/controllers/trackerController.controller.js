@@ -1,8 +1,8 @@
-const userSchemaModel = require("../Models/USerSchema.model");
 // const { find } = require("../Models/USerSchema.model");
 const {numberCheck,emailCheck,nameCheck,passwordCheck} = require("../validation")
 const encryptPassword= require("../encryption/hashPassword.encrypt");
 const decryptPassword = require("../encryption/decryptPassword.encrypt");
+const userSchema= require("../Models/USerSchema.model")
 // let bcrypt  = require("bcryptjs")
 
 const loginToAccount = async (req,res,next)=>{
@@ -11,7 +11,7 @@ const loginToAccount = async (req,res,next)=>{
     
     let email,mobile;
     let err=""
-    if(Number(username) === "NaN"){
+    if(Number(username)){
         err= numberCheck(username)
         mobile=username
     }else{
@@ -21,12 +21,16 @@ const loginToAccount = async (req,res,next)=>{
     if(err){
        return  res.send(201).json({error:true,message:err})
     }
-    let obj =await  userSchemaModel.findOne({$or:[{email},{mobile}]});
-    console.log(obj,obj._id,typeof obj._id);
+        console.log(email,mobile);
+        let obj  = await userSchema.findOne({$or:[{email},{mobile}]});
+       
+    console.log(obj);
     if(obj){
         let check =  await decryptPassword(password,obj.password) 
         if(check){
+            console.log(obj);
             res.status(200).json({error:false,message:"Authentication matched.",data:obj})
+            
         }else{
             res.status(200).json({error:true,message:"Password is incorrect."})
         }
@@ -35,7 +39,7 @@ const loginToAccount = async (req,res,next)=>{
         res.status(201).json({error:true,message:"Username not exist."})
 
     }
-    }catch(err){ console.log("enter to catch error"); next(err);    }
+    }catch(err){ console.log("enter to catch error", err); next(err);    }
 }
 
 
@@ -65,13 +69,13 @@ const createAccount = async (req,res,next)=>{
     dob= dob.trim()
 
     try{
-        let user= await userSchemaModel.findOne({$or:[{email},{mobile}]});
+        let user= await userSchema.findOne({$or:[{email},{mobile}]});
         if(user){
             return res.status(200).json({error:true,message:"Mobile or email already exist."})
         }
 
         const hash= await encryptPassword(password)
-        user = await userSchemaModel.create({first,last, password:hash,email,mobile,dob,gender})
+        user = await userSchema.create({first,last, password:hash,email,mobile,dob,gender})
         res.json({error:false,message:"User's account created.", data:user})
         console.log("Successfull account created.");
 

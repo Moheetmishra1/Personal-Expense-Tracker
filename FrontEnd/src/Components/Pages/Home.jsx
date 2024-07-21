@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import "../../CSS/Home.css"
 import { useStateUpdateHook } from '../../Helper/useStateUpdate';
 import axios from 'axios';
+import { login } from '../../../Redux/React_Slice/expense.reduxSlice';
 
 function Home() {
   let {islogin} = useSelector(store=>store.cart)
@@ -24,6 +25,10 @@ function Home() {
 
     }
 
+    useEffect(()=>{
+      login(sessionStorage.getItem("user") && JSON.parse(sessionStorage.getItem("user"))||{amount:"",category:"",date:"",description:""})
+      
+    },[])
   
   // console.log(islogin);
   return (
@@ -32,13 +37,13 @@ function Home() {
 
     
 
-  <h1>Personal Expenses Tracker</h1>
-  <form id="expense-form" onSubmit={addExpense}>
+  <h1 style={{textAlign:"center"}}>Personal Expenses Tracker</h1>
+  <form id="expense-form" className='homeForm' onSubmit={addExpense}>
     <label htmlFor="amount">Amount:</label>
-    <input type="number" id="amount" name="amount" required onKeyUp={setExpense} />
+    <input type="number"  id="amount" name="amount" required onKeyUp={setExpense} />
 
     <label htmlFor="category">Category:</label>
-    <select id="category" name="category" required onChange={setExpense}>
+    <select id="category" className='homeSelect' name="category" required onChange={setExpense}>
       <option value="">Select a category</option>
       <option value="Food">Food</option>
       <option value="Transportation">Transportation</option>
@@ -53,7 +58,7 @@ function Home() {
     <label htmlFor="description">Description:</label>
     <textarea id="description" name="description" required onKeyUp={setExpense}></textarea>
 
-    <button type="submit">Add Expense</button>
+    <button type="submit" className='addExpense'>Add Expense</button>
   </form>
 
   <section id="expense-list">

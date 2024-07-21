@@ -5,20 +5,18 @@
   font-optical-sizing: auto;
   font-weight: 700;
   font-size: 80px;
-  /* font-style: bolder; */
   letter-spacing: 1px;
   font-variation-settings:"wdth" 100;
 }
 
 .signupBox{
     height: 80vh;
+    width: 100%;
     display: grid;
     grid-template-columns: 2fr 4fr;
-    /* border: 1px solid black; */
 }
 .errorMessage{
     height: 10px;
-    /* border: 1px solid black; */
     color: red;
     text-align: center;
     display: block;
@@ -26,10 +24,10 @@
 
 .signupDesign{
     height: 90vh;
+    border: 5px solid black;
     background-color: white;
     border-start-start-radius: 5%;
     border-end-start-radius: 5%;
-    /* border: 5px solid green; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,8 +36,6 @@
 .signupOuterForm{
     
     width: 700px;
-    /* padding: 50px; */
-/* border: 4px dotted violet; */
 
 }
 
@@ -51,7 +47,6 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    /* border: 1px solid black; */
 }
 .signupForm span{
     height: 4px;
@@ -81,7 +76,6 @@
     height: 35px;
     padding: 4px;
     width: 300px;
-    /* border-bottom: 2px solid blue; */
     border-radius: 5px;
     margin-left: 8px;
     border: none;
@@ -106,7 +100,6 @@
 }
 .gender{
     display: flex;
-    /* justify-content: ; */
     gap:10%;
     align-items: center;
 }
@@ -119,21 +112,26 @@
     width: 700px;
     position: absolute;
     z-index: -1;
-    /* background-image: url("../assets/Imag es/wallet.jpg"); */
     background-size: 90% 100%;
     background-repeat: no-repeat;
     background-position: -30px 0px;
 }
 
-.signupd{
+.tranferSignup{
     height: 85%;
     width: 25%;
     position: absolute;
     z-index: 2;
-    left: 10%;
-    /* border: 1px solid black; */
+    left: 20%;
     background-image: url("../assets/Images/3d-render-online-payment-transaction-security.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: 50% 40%;
+}
+
+@media (max-width :700px) {
+    .tranferSignup{
+        background-image: none;
+    }
+    
 }

@@ -2,7 +2,6 @@
 
 body{
     height: 100vh;
-    /* background-color: #9c538b; */
     background-image: linear-gradient(120deg ,#dfa0c2 , #8b1c71 ,#dfa0c2 ) ;
     
 }
@@ -17,7 +16,6 @@ body{
     margin: 5vh auto;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
 
 }
@@ -25,7 +23,7 @@ body{
 .loginformBox{
     width: 98%;
     height: 45vh;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.636);
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -39,9 +37,7 @@ body{
     width: 75%;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
 
-    /* border: 1px solid black; */
 }
 .loginForm>div{
     display: flex;
@@ -61,5 +57,10 @@ body{
     background-color: green;
 }
 
+.loginError{
+    height: 50px;
+    padding: 5px;
+    margin: -19px;
+}
 
 

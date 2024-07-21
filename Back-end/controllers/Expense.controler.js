@@ -16,8 +16,6 @@ const addExpense= async (req,res,next)=>{
     if(!category){
         category="Food"
     }
-    
-
     try{
         let obj =await  USerSchemaModel.findById({_id})
         if(obj){
@@ -33,4 +31,20 @@ const addExpense= async (req,res,next)=>{
     }
 }
 
+
+
+
+let AllExpenses= async (req,res,next)=>{
+    try{
+
+        let {id}=req.params;
+        let data = await ExpenseSchema.find({user_id:id});
+        console.log(data);
+
+    }catch(err){
+        next(err)
+    }
+}
+
 exports.addExpense= addExpense
+exports.AllExpenses= AllExpenses

@@ -27,7 +27,7 @@ function Signup() {
 
         switch(target.name){
             case "first":{ errorHandlerInput(target,refFirst,nameCheck,target.value)  ;break};
-            case "last":{ errorHandlerInput(target,refLast,nameCheck,target.value);break};
+            case "last":{ value && errorHandlerInput(target,refLast,nameCheck,target.value);break};
             case "email":{ errorHandlerInput(target,refEmail,emailCheck,target.value);break};
             case "mobile":{ errorHandlerInput(target,refMobile,numberCheck,target.value);break};
             case "password":{ errorHandlerInput(target,refPwd,passwordCheck,target.value);break};
@@ -36,56 +36,53 @@ function Signup() {
         }
     }
 
-console.log(user);
+
     let sendDetails = async(e)=>{
         e.preventDefault()
-
-        console.log(user);
-        try{
-
-            let err= nameCheck(user.first) || nameCheck(user.last) || emailCheck(user.email) || emailCheck(user.email) ||
-            passwordCheck(user.password)  || passwordCheck(user.confirmPassword) || !user.dob  || !user.gender 
-
-                if(err){
-                    if(err=== true){
-                errorMessage.current.innerHTML = "D.o.B and Gender are Mandatory."
-                return;
-
-                    }
-                errorMessage.current.innerHTML = err
-                console.log(err);
-                // errorHandlerInput.current.innerHTML=err
-
-                }else if(user.password !== user.confirmPassword){
-
-                    errorMessage.current.innerHTML = "Password doesn't match."
-                    console.log(err);
-                    // errorHandlerInput.current.innerHTML=err
-
-                }else{
-                        let {data} = await axios.post("http://localhost:4044/api/v1/signup",user)
-                        console.log(data);
-                        if(data.error){
-                                errorMessage.current.innerHTML=data.message
-                                // errorMessage.current.style="color:green;"
-                        }else{
-                             errorMessage.current.innerHTML=data.message
-                                errorMessage.current.style="color:green;"
-                            setTimeout(()=>{
-                                navigateToLogin("/login")
-                            },1000)
-
-                        }
-                       
-                        
+            try{
+                if( !user.first || !user.email || !user.mobile || !user.dob || !user.gender || !user.password || !user.confirmPassword){
+                  errorMessage.current.innerHTML = "All fields are Mandatory."
+                  return 
                 }
 
+            let err= nameCheck(user.first)  || emailCheck(user.email) || numberCheck(user.mobile)
+            passwordCheck(user.password)  || passwordCheck(user.confirmPassword) || !user.dob  || !user.gender 
+                console.log(nameCheck(user.first));
+                if(err){
+                    if(err=== true){
+                  errorMessage.current.innerHTML = "D.o.B and Gender are Mandatory."
+                return;
+                    }
+                  return errorMessage.current.innerHTML = err
+            
+                }
+                err= nameCheck(user.last)
+                if(user.last && err){
+                errorMessage.current.innerHTML = "D.o.B and Gender are Mandatory."
+                        return 
+                }
+                if(user.password !== user.confirmPassword){
+
+                    return  errorMessage.current.innerHTML = "Password doesn't match."
+
+                }
+                
+                let {data} = await axios.post("http://localhost:4044/api/v1/signup",user)
+                console.log(data);
+                if(data.error){
+                        errorMessage.current.innerHTML=data.message
+                        // errorMessage.current.style="color:green;"
+                }else{
+                        errorMessage.current.innerHTML=data.message
+                        errorMessage.current.style="color:green;"
+                    setTimeout(()=>{
+                        navigateToLogin("/login")
+                    },1000)
+
+                }
         }catch(err){
-
-        }
-       
-
-
+           createNextState(err)
+        }       
     }
 
 
@@ -94,22 +91,23 @@ console.log(user);
     <div className='signupBox'>
 
       <div className='signupd'>
-        </div>
-        <div className="signupContent">
-            <div>
+      <div className='tranferSignup'>
 
-            </div>
+</div>
+      <div className="signupContent">
+           
         </div>
+        </div>
+       
         <div className="signupDesign">
             <div className='signupOuterForm'>
                 <h1 className='kalnia-glaze-signHeading '>Create Account</h1>
                 <span className='errorMessage' ref={errorMessage}></span>
-                    <form action="" onSubmit={sendDetails} className='signupForm'>
-
+                    <form onSubmit={sendDetails} className='signupForm'>
                         <div className='signName'>
                             <div>
-                                <label htmlFor="fname" className='oninput'>First</label>
-                                <InputComponent  type="text"  className='signInputBox' Name='first' id='fname' changeUser={update}   placeholder="Enter first name" />
+                                <label htmlFor="fname" className='oninput' >First</label>
+                                <InputComponent  type="text"  className='signInputBox' Name='first' id='fname' changeUser={update}    placeholder="Enter first name" />
                                     <span  style={{color:"red"}} ref={refFirst}></span>
                             </div>
                             <div>
@@ -181,12 +179,13 @@ console.log(user);
                                 <span ref={refGender}></span>
                         </div  >
                             <div style={{display:"flex",justifyContent:"center" ,gap:"10%"}}>
-                                <ButtonComponent className="submit" type="submit" /> <ButtonComponent class="reset" type="reset" />
+                                <ButtonComponent className="submit" type="submit" /> <ButtonComponent className="reset" type="reset" />
                         </div>
+                        {/* <input type="submit" /> */}
                     </form>
 
-        <p class="text-gr╕ay-soft text-center small mb-2">By clicking "Sign up" you agree to our <NavLink to="https://themes.getbootstrap.com/terms">Terms of Service</NavLink>.</p>
-        <p class="text-gray-soft text-center small mb-2">Already have an account? <NavLink to="/login">Sign in</NavLink></p>      
+        <p className="text-gr╕ay-soft text-center small mb-2">By clicking "Sign up" you agree to our <NavLink to="https://themes.getbootstrap.com/terms">Terms of Service</NavLink>.</p>
+        <p className="text-gray-soft text-center small mb-2">Already have an account? <NavLink to="/login">Sign in</NavLink></p>      
 
             </div>
         </div>

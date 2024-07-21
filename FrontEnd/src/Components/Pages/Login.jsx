@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import "../../CSS/Login.css"
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useStateUpdateHook } from '../../Helper/useStateUpdate'
@@ -32,14 +32,15 @@ function Login() {
     loginError.current.style="color:red"
 
     let email,mobile,err;
-    if(Number(user.username)==="NaN"){
+    if(Number(user.username)){
+
       mobile=user.username
       err= numberCheck(mobile);
     }else{
       email= user.username
       err= emailCheck(email)
     }
-
+    console.log(err, "error checing for username",Number(user.username),email,mobile);
     if(err){
       return  loginError.current.innerHTML=err
     }
@@ -47,18 +48,19 @@ function Login() {
      if(err){
       return  loginError.current.innerHTML=err
     }
-
+console.log(user);
       try{
         let {data}= await axios.post("http://localhost:4044/api/v1/login",user)
-        // console.log(message);
+        console.log("seraching ", data);
         if(data.error){
             loginError.current.innerHTML=data.message
         }else{
         loginError.current.innerHTML="Login successfully"
         loginError.current.style="color:green"
         // console.log(data);
-        user=data.data
+        // user=data.data
        await dispatch(login(user))
+       sessionStorage.setItem("user",JSON.stringify(data.data))
         navToHome("/")
 
         }
@@ -68,7 +70,33 @@ function Login() {
         console.log(err);
       }
       } 
-console.log(user);
+console.log(user," is login ");
+
+let useEffectLogin = async(data)=>{
+  try{
+    let d = await axios.post("http://localhost:4044/api/v1/login",{username:data.email,password:data.password})
+      if(d.error){
+        dispatch(login(data));
+        navToHome("/")
+      }
+
+  }catch(err){
+    console.log(err);
+  }
+}
+
+useEffect(()=>{
+  let data = sessionStorage.getItem("user");
+  if(data !== 'undefined'){
+    console.log(typeof data);
+    data =JSON.parse(data);
+    useEffectLogin(data)
+
+  }
+ 
+
+
+},[])
 
 
 
