@@ -70,12 +70,12 @@ console.log(user);
         console.log(err);
       }
       } 
-console.log(user," is login ");
+// console.log(user," is login ");
 
 let useEffectLogin = async(data)=>{
   try{
     let d = await axios.post("http://localhost:4044/api/v1/login",{username:data.email,password:data.password})
-      if(d.error){
+      if(!d.error){
         dispatch(login(data));
         navToHome("/")
       }
