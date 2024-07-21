@@ -42,7 +42,7 @@ function Home() {
     <label htmlFor="amount">Amount:</label>
     <input type="number"  id="amount" name="amount" required onKeyUp={setExpense} />
 
-    <label htmlFor="category">Category:</label>
+    <label htmlFor="category" className='HomeAddExpense'>Category:</label>
     <select id="category" className='homeSelect' name="category" required onChange={setExpense}>
       <option value="">Select a category</option>
       <option value="Food">Food</option>
