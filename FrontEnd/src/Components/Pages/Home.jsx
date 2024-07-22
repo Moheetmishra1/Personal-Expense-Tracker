@@ -5,6 +5,7 @@ import "../../CSS/Home.css"
 import AddExpense from '../AddExpense';
 import HistoryExpense from '../HistoryExpense';
 import PaymentHistory from '../PaymentHistory';
+import PeriodicExpend from '../PeriodicExpend';
 
 function Home() {
   let {islogin} = useSelector(store=>store.cart)
@@ -23,6 +24,7 @@ function Home() {
     <AddExpense user={islogin} />
     {/* <PaymentHistory /> */}
     {/* <HistoryExpense /> */}
+    <PeriodicExpend />
    </>
   )
 }

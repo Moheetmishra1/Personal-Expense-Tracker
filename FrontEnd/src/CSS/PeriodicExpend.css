@@ -1,0 +1,27 @@
+.expenses-graph {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .expenses-graph h1 {
+    margin-top: 0;
+  }
+  
+  .recharts-tooltip {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .recharts-tooltip-item {
+    margin-bottom: 10px;
+  }
+  
+  .recharts-tooltip-item:last-child {
+    margin-bottom: 0;
+  }

@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 
 function AddExpense({}) {
   let {islogin} = useSelector(store=>store.cart)
-  console.log(islogin);
   let [expense,setExpense] = useStateUpdateHook({amount:"",category:"",date:"",description:""})
   let [category,setCategory] = useState([])
   let refAmount =useRef()
@@ -19,7 +18,6 @@ function AddExpense({}) {
   let addExpense = async (e)=>{
     e.preventDefault()
 
-    console.log(expense);
     try{
       // console.log(user._id);
           if(!expense.category){expense.category="Food"}
@@ -30,7 +28,6 @@ function AddExpense({}) {
       refCatagory.current.value=""
       refDate.current.value=""
       refDesc.current.value=""
-      // console.log(expe);
      }
     }catch(err){
       console.log(err);
@@ -49,10 +46,8 @@ function AddExpense({}) {
   }
 
   let intialCategory= async()=>{
-    console.log(islogin);
     try{
       let {data} = await axios.get(`http://localhost:4044/api/v1/getuserdetail/${islogin._id}`)
-        console.log(data);
       if(!data.err){
         setCategory(data.data.category)
   
@@ -65,7 +60,6 @@ useEffect( ()=>{
   intialCategory()
 },[])
 
-console.log(category);
   return (
     <>
      <div>

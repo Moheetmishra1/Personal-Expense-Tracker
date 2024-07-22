@@ -1,6 +1,6 @@
 const express= require("express")
 const {loginToAccount,createAccount, updateUser, updateUserCategory, getUserDeatil, getUserDetail} = require("../controllers/trackerController.controller");
-const { addExpense, AllExpenses, updateExpense, deleteExpense ,getQuery, singleExpense} = require("../controllers/Expense.controler");
+const { addExpense, AllExpenses, updateExpense, deleteExpense ,getQuery, singleExpense, today, month} = require("../controllers/Expense.controler");
 
 let router = express.Router()
 
@@ -14,6 +14,8 @@ router.put("/updateexpense/:id",updateExpense);
 router.delete("/deleteexpense/:id",deleteExpense)
 router.get("/home",getQuery)
 router.get("/singleexpense/:pid",singleExpense)
+router.get("/today/:id",today)
+router.get("/query",month)
 
 
 

@@ -21,14 +21,12 @@ const loginToAccount = async (req,res,next)=>{
     if(err){
        return  res.send(201).json({error:true,message:err})
     }
-        console.log(email,mobile);
         let obj  = await userSchema.findOne({$or:[{email},{mobile}]});
        
     console.log(obj);
     if(obj){
         let check =  await decryptPassword(password,obj.password) 
         if(check){
-            console.log(obj);
             res.status(200).json({error:false,message:"Authentication matched.",data:obj})
             
         }else{
@@ -87,7 +85,6 @@ const createAccount = async (req,res,next)=>{
 
 let updateUserCategory= async(req,res,next)=>{
 
-    console.log("echecking");
     try{
         let {id} = req.params;
         let obj = await userSchema.findById(id)
