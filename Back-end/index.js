@@ -17,6 +17,10 @@ app.use((err,req,res,next)=>{
 })
 
 
+app.all("*",(req,res,next)=>{
+    res.status(404).json({error:true,message:"Page not found."})
+})
+
 async function connectMongoDb(){
     try{
         await connectToDatabase(process.env.mongodbServerURL)

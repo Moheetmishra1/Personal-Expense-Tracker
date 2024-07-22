@@ -15,7 +15,7 @@ function Login() {
   let dispatch= useDispatch()
   let navToHome= useNavigate()
   let showPassword= useRef("Not refer.")
-  
+
 
   function passwordShow(){
     if(showPassword.current.type==="password"){
@@ -40,7 +40,6 @@ function Login() {
       email= user.username
       err= emailCheck(email)
     }
-    console.log(err, "error checing for username",Number(user.username),email,mobile);
     if(err){
       return  loginError.current.innerHTML=err
     }
@@ -48,35 +47,31 @@ function Login() {
      if(err){
       return  loginError.current.innerHTML=err
     }
-console.log(user);
       try{
         let {data}= await axios.post("http://localhost:4044/api/v1/login",user)
-        console.log("seraching ", data);
         if(data.error){
-            loginError.current.innerHTML=data.message
+          return  loginError.current.innerHTML=data.message
         }else{
         loginError.current.innerHTML="Login successfully"
         loginError.current.style="color:green"
-        // console.log(data);
-        // user=data.data
-       await dispatch(login(user))
-       sessionStorage.setItem("user",JSON.stringify(data.data))
+        
+       await dispatch(login(data.data))
+       sessionStorage.setItem("user",JSON.stringify({email:data.data.email,password:user.password}))
         navToHome("/")
 
         }
-
-
       }catch(err){
         console.log(err);
       }
       } 
 // console.log(user," is login ");
 
-let useEffectLogin = async(data)=>{
+let useEffectLogin = async(session)=>{
   try{
-    let d = await axios.post("http://localhost:4044/api/v1/login",{username:data.email,password:data.password})
-      if(!d.error){
-        dispatch(login(data));
+    console.log(session);
+    let {data} = await axios.post("http://localhost:4044/api/v1/login",{username:session.email,password:session.password})
+      if(!data.error){
+        dispatch(login(data.data));
         navToHome("/")
       }
 
@@ -88,7 +83,6 @@ let useEffectLogin = async(data)=>{
 useEffect(()=>{
   let data = sessionStorage.getItem("user");
   if(data !== 'undefined'){
-    console.log(typeof data);
     data =JSON.parse(data);
     useEffectLogin(data)
 
@@ -110,7 +104,7 @@ useEffect(()=>{
         <form action="POST"  className='loginForm'  onSubmit={sendDetails} >
           <div>
           <label htmlFor="username">Username</label>
-          <input type="text" id="username" name="username" onChange={setUser}  />
+          <input type="text" id="username" name="username"  onChange={setUser}  />
           </div>
 
           <div>

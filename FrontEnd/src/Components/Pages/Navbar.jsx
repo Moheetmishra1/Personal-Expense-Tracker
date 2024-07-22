@@ -18,6 +18,7 @@ function Navbar() {
        {islogin &&  <NavLink to="/">Home</NavLink>}
        {!islogin && <NavLink to="/login">Login</NavLink>}
        {!islogin && <NavLink to="/signup">Signup</NavLink>}
+       {islogin && <NavLink to="/paymenthistory">History</NavLink>}
 
         {islogin && <div className="logoutIcon">
             

@@ -46,7 +46,7 @@ const loginToAccount = async (req,res,next)=>{
 
 const createAccount = async (req,res,next)=>{
     console.log("enter to create");
-    let {first,last,email,mobile,password,confirmPassword,dob,gender} = req.body;
+    let {first,last,email,mobile,password,confirmPassword,dob,gender,category} = req.body;
    
     let err  = nameCheck(first)|| (last && nameCheck(last))|| emailCheck(email)|| numberCheck(mobile) ||passwordCheck(password)
     
@@ -75,7 +75,7 @@ const createAccount = async (req,res,next)=>{
         }
 
         const hash= await encryptPassword(password)
-        user = await userSchema.create({first,last, password:hash,email,mobile,dob,gender})
+        user = await userSchema.create({first,last, password:hash,email,mobile,dob,gender,category})
         res.json({error:false,message:"User's account created.", data:user})
         console.log("Successfull account created.");
 
@@ -85,4 +85,42 @@ const createAccount = async (req,res,next)=>{
 
 }
 
-module.exports= {loginToAccount,createAccount}
+let updateUserCategory= async(req,res,next)=>{
+
+    console.log("echecking");
+    try{
+        let {id} = req.params;
+        let obj = await userSchema.findById(id)
+        if(obj){
+            console.log("Enter for update category",req.body);
+            let data = await userSchema.findByIdAndUpdate(id,{$set:{category:[...obj.category,req.body.cate]}})
+            res.status(201).json({error:false,message:"Update the change",data:[...obj.category,req.body.cate]})
+        }
+        else{
+            res.status(201).json({error:true,message:"user is not available"})
+            
+        }
+
+    }catch(err){
+        next(err);
+    }
+}
+
+
+let getUserDetail = async(req,res,next)=>{
+    try{
+        let {id}= req.params;
+
+        let obj = await userSchema.findById(id)
+        if(obj){
+            res.status(201).json({error:false,message:"User is exist",data:obj})
+        }else{
+            res.status(202).json({error:true,message:"User is not exist"});
+        }
+
+    }catch(err){
+        next(err)
+    }
+}
+
+module.exports= {loginToAccount,createAccount,updateUserCategory,getUserDetail}

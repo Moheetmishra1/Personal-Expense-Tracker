@@ -53,3 +53,21 @@
   #expenses li span {
     font-weight: bold;
   } 
+
+  .customCategory{
+   
+    margin:4px 350px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+  }
+  .customCategory button{
+    margin: 4px;
+    width: 100px;
+    border: none;
+    border-radius: 2px;
+    height: 25px;
+    background-color: rgb(191, 52, 215);
+  }

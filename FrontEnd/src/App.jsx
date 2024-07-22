@@ -9,6 +9,8 @@ import Home from './Components/Pages/Home'
 import Login from './Components/Pages/Login'
 import Signup from './Components/Pages/Signup'
 import Authentication from './Components/Authentication'
+import PaymentHistory from './Components/PaymentHistory'
+import Update from './Components/Pages/Update'
 
 function App() {
   
@@ -23,6 +25,8 @@ function App() {
       <Route path="/" element= {<Authentication> <Home /></Authentication> }/>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/paymenthistory" element={<Authentication> <PaymentHistory /></Authentication> }/>
+      <Route path="/update/:pid" element={<Authentication><Update /></Authentication> } />
       <Route path='*' element={<h1 style={{color:"red"}}> Page not found....</h1>}/>
 
 

@@ -27,7 +27,7 @@ function Signup() {
 
         switch(target.name){
             case "first":{ errorHandlerInput(target,refFirst,nameCheck,target.value)  ;break};
-            case "last":{ value && errorHandlerInput(target,refLast,nameCheck,target.value);break};
+            case "last":{ target.value && errorHandlerInput(target,refLast,nameCheck,target.value);break};
             case "email":{ errorHandlerInput(target,refEmail,emailCheck,target.value);break};
             case "mobile":{ errorHandlerInput(target,refMobile,numberCheck,target.value);break};
             case "password":{ errorHandlerInput(target,refPwd,passwordCheck,target.value);break};
@@ -66,7 +66,8 @@ function Signup() {
                     return  errorMessage.current.innerHTML = "Password doesn't match."
 
                 }
-                
+                user.category=["Food","Transportation","Housing","Entertainment"]
+                console.log(user);
                 let {data} = await axios.post("http://localhost:4044/api/v1/signup",user)
                 console.log(data);
                 if(data.error){

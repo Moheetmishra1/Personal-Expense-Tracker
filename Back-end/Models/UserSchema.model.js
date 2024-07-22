@@ -28,6 +28,10 @@ const userSchema =new Schema({
     },
     gender:{require:[true,"Gender is Mandatory"],
         type:String
+    },
+    category:{
+        require:true,
+        type:[String]
     }
 
     
