@@ -31,7 +31,8 @@ const userSchema =new Schema({
     },
     category:{
         require:true,
-        type:[String]
+        type:[String],
+        value:["Food","Housing","Transportaion"]
     }
 
     
