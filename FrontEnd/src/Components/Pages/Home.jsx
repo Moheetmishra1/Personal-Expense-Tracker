@@ -1,30 +1,37 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import React, { useCallback, useEffect, useState } from 'react'
 import "../../CSS/Home.css"
-  import { login } from '../../../Redux/React_Slice/expense.reduxSlice';
 import AddExpense from '../AddExpense';
-import HistoryExpense from '../HistoryExpense';
-import PaymentHistory from '../PaymentHistory';
+
 import PeriodicExpend from '../PeriodicExpend';
+import CustomeCategory from '../Home/CustomeCategory';
 
 function Home() {
-  let {islogin} = useSelector(store=>store.cart)
-  // let [expense,setExpense] = useState({amount:"",catagory:"",data:"",description:""})
-   
+  let [rendering,setRender] = useState(false)
 
-    useEffect(()=>{
+  let renderingFunction = useCallback(()=>{
+    console.log("Calling",rendering);
+    setRender((!rendering))
+  },[rendering])
+  console.log("rendering",rendering);
 
-      login(sessionStorage.getItem("user") && JSON.parse(sessionStorage.getItem("user"))||{amount:"",category:"",date:"",description:""})
-      
-    },[])
-  console.log(islogin, " by signup");
-  // console.log(islogin);
   return (
    <>
-    <AddExpense user={islogin} />
-    {/* <PaymentHistory /> */}
-    {/* <HistoryExpense /> */}
-    <PeriodicExpend />
+   <div  className='homeCss'>
+
+
+
+   <div className='custom-add '>
+   <AddExpense  />
+  </div>
+    
+    
+  <div className='graphCategory'>  
+          <PeriodicExpend />
+     <CustomeCategory newCategory={rendering} renderingFunction={renderingFunction} />
+  </div>
+
+
+    </div>
    </>
   )
 }

@@ -1,7 +1,11 @@
-
+.addExpenseBox{
+  padding: 20px;
+ 
+}
 
   .homeForm {
-    width: 400px;
+    /* width: 400px; */
+    padding: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 10px;
@@ -62,12 +66,4 @@
     flex-direction: column;
     justify-content: center;
     color: white;
-  }
-  .customCategory button{
-    margin: 4px;
-    width: 100px;
-    border: none;
-    border-radius: 2px;
-    height: 25px;
-    background-color: rgb(191, 52, 215);
   }

@@ -1,0 +1,28 @@
+
+.centerBox{
+    display: flex;
+    justify-content: center;
+}
+.customCategory{
+    width: 20%;
+    /* border: 2px solid white; */
+    margin: 1px;
+    margin-left: 2%;
+    /* margin: 10px auto; */
+    /* margin:4px 350px; */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+  }
+ 
+
+  .submit{
+    width: 100px;
+    border-radius: 5px;
+    margin-left: 5px;
+    padding: 2px;
+    background-color: green;
+    color: white;
+  }

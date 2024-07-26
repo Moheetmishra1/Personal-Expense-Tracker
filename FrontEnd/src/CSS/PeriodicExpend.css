@@ -25,3 +25,40 @@
   .recharts-tooltip-item:last-child {
     margin-bottom: 0;
   }
+
+  .dataAnalysistBox{
+    width: 100px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    justify-content: center;
+
+ }
+
+ .graphBox{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border: 2px solid black; */
+  padding: 5px;
+ }
+
+ .periodicExpendFilterTable{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+ }
+
+.periodicbutton{
+  padding: 5px;
+  height: 30px;
+  background-color: rgb(15, 147, 6);
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 15px;
+  color: white;
+  border: none;
+  border-radius: 20%;
+}
+.dataAnalysistBox input::placeholder{
+  padding-left: 3px;
+}

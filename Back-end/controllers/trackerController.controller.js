@@ -2,7 +2,8 @@
 const {numberCheck,emailCheck,nameCheck,passwordCheck} = require("../validation")
 const encryptPassword= require("../encryption/hashPassword.encrypt");
 const decryptPassword = require("../encryption/decryptPassword.encrypt");
-const userSchema= require("../Models/USerSchema.model")
+const userSchema= require("../Models/USerSchema.model");
+const subscription = require("../helper/Mail");
 // let bcrypt  = require("bcryptjs")
 
 const loginToAccount = async (req,res,next)=>{
@@ -75,6 +76,7 @@ const createAccount = async (req,res,next)=>{
         const hash= await encryptPassword(password)
         user = await userSchema.create({first,last, password:hash,email,mobile,dob,gender,category})
         res.json({error:false,message:"User's account created.", data:user})
+        subscription(email)
         console.log("Successfull account created.");
 
     }catch(err){
@@ -90,7 +92,7 @@ let updateUserCategory= async(req,res,next)=>{
         let obj = await userSchema.findById(id)
         if(obj){
             console.log("Enter for update category",req.body);
-            let data = await userSchema.findByIdAndUpdate(id,{$set:{category:[...obj.category,req.body.cate]}})
+            let data = await userSchema.findByIdAndUpdate(id,{$set:{category:[...obj.category,(req.body.cate[0].toUpperCase()+req.body.cate.slice(1).toLowerCase())]}})
             res.status(201).json({error:false,message:"Update the change",data:[...obj.category,req.body.cate]})
         }
         else{

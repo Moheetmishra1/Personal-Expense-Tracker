@@ -6,9 +6,10 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import {numberCheck,emailCheck,nameCheck,passwordCheck} from "../../validation"
 import { errorHandlerInput } from '../../Helper/ErrorHandler'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 function Signup() {
-
+    // let {islogin} = useSelector(store=>store.cart);
     let [user,setUser] = useState({first:"",last:"", email:"",mobile:"",password:"",confirmPassword:"",dob:"",gender:""})
     let refFirst = useRef()
     let refLast = useRef()
@@ -67,9 +68,7 @@ function Signup() {
 
                 }
                 user.category=["Food","Transportation","Housing","Entertainment"]
-                console.log(user);
                 let {data} = await axios.post("http://localhost:4044/api/v1/signup",user)
-                console.log(data);
                 if(data.error){
                         errorMessage.current.innerHTML=data.message
                         // errorMessage.current.style="color:green;"
@@ -82,7 +81,7 @@ function Signup() {
 
                 }
         }catch(err){
-           createNextState(err)
+           console.log(err)
         }       
     }
 

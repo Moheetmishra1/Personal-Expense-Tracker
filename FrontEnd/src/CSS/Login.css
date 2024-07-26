@@ -2,7 +2,8 @@
 
 body{
     height: 100vh;
-    background-image: linear-gradient(120deg ,#dfa0c2 , #8b1c71 ,#dfa0c2 ) ;
+    background-color: rgba(206, 202, 229, 0.823);
+    /* background-image: linear-gradient(120deg ,rgb(169, 159, 159) ) ; */
     
 }
 

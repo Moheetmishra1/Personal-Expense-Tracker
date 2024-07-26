@@ -111,7 +111,7 @@ import { useSelector } from 'react-redux';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import "../CSS/PeriodicExpend.css"
 
-function PeriodicExpend() {
+function PeriodicExpend({newCategory}) {
   const { islogin } = useSelector(store => store.cart);
   const [Allexpense, setAllExpense] = useState([]);
   const [categories, setCategories] = useState({});
@@ -143,7 +143,11 @@ function PeriodicExpend() {
     };
 
     processExpenses();
-  }, [graphChange]);
+
+  }, [graphChange,islogin]);
+  useEffect(()=>{
+    monthly()
+  },[])
 
   const today = async () => {
     try {
@@ -171,7 +175,12 @@ function PeriodicExpend() {
   const rangeDate= async (e)=>{
     e.preventDefault()
 
+    if(!startDate.current.value || !endDate.current.value){
+      return
+    }
+
     try{
+
         const { data } = await axios.get(`http://localhost:4044/api/v1/query?q=${islogin._id}&&start=${startDate.current.value}&end=${endDate.current.value}`);
         console.log(data);
         setGraph(!graphChange)
@@ -185,13 +194,14 @@ function PeriodicExpend() {
   }
 
 
-  
-
   return (
-    <>
-      <div>PeriodicExpend <button onClick={today}>Today</button> <button onClick={monthly}>Monthly</button> </div>
-      <div><form onSubmit={rangeDate}><input type="date"  ref={startDate} /> <input type="date"   ref={endDate} /> <input type="Submit" /></form> </div>
+    <div className='dataAnalysistBox'>
+      <div className="graphBox">
+        <div className='periodicExpendFilterTable'>
 
+      <div>PeriodicExpend <button className='periodicbutton' onClick={today}>Today</button> <button className='periodicbutton' onClick={monthly}>Monthly</button> </div>
+      <div><form onSubmit={rangeDate}><input type="date"  ref={startDate} /> <input type="date"   ref={endDate} /> <input className="periodicbutton" type="Submit" /></form> </div>
+      </div>
       <div className="expenses-graph">
         <h1>Expenses by Category</h1>
         <BarChart width={500} height={300} data={Object.keys(categories).map(category => ({ name: category, value: categories[category] }))}>
@@ -202,7 +212,9 @@ function PeriodicExpend() {
           <Bar dataKey="value" fill="#8884d8" />
         </BarChart>
       </div>
-    </>
+      <div className="maximumExpanse"></div>
+      </div>
+    </div>
   );
 }
 

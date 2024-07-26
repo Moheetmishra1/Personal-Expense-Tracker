@@ -13,9 +13,9 @@ function emailCheck(Email){
 
 function numberCheck(number){
 
-    let numberCheck= /^(7|8|9)\d{9}$/
+    let numberCheck= /^(6|7|8|9)\d{9}$/
 
-    return !number ? "Number is Mandatory" : !numberCheck.test(number) ? "Mobile number must be 10 digit number and start be with 7/8/9" :"";
+    return !number ? "Number is Mandatory" : !numberCheck.test(number) ? "Mobile number must be 10 digit number and start be with 6/7/8/9" :"";
 }
 
 
