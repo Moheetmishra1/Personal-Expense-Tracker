@@ -5,10 +5,10 @@
  --? How to Start the server 
 -
   -> Goto backend directory using cmd ( " cd Back-end ") in one terminal.
-  -> Create a '.env' file in the back-end folder, [
-                                          1. mention the PORT number for your section in the 'PORT' identifier'
-                                          2. Mention the Salt length for encryption in 'salt_length' identifier
-                                          3. Mention your MongoDB server URL (local/global) in the 'mongodbServerURL' identifier          
+  -> Create a '.env' file in the back-end folder
+                                          -> mention the PORT number for your section in the 'PORT' identifier'
+                                          -> Mention the Salt length for encryption in 'salt_length' identifier
+                                          -> Mention your MongoDB server URL (local/global) in the 'mongodbServerURL' identifier          
   -> Install all the packages using cmd (" npm install ").
  
 
