@@ -2,7 +2,7 @@
 ------------
 
 
- Start the server 
+ --? How to Start the server 
 -
   -> Goto backend directory using cmd ( " cd Back-end ") in one terminal.
   -> Create a '.env' file in the back-end folder, [
