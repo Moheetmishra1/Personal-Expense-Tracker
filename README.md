@@ -6,6 +6,7 @@
 -
        -> Goto backend directory using cmd ( " cd Back-end ") in one terminal.
        -> Create a '.env' file in the back-end folder
+                      Inside .env file--
                     -> mention the PORT number for your section in the 'PORT' identifier'
                     -> Mention the Salt length for encryption in 'salt_length' identifier
                     -> Mention your MongoDB server URL (local/global) in the 'mongodbServerURL' identifier          
