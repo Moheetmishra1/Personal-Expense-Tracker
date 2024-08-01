@@ -1,16 +1,31 @@
 import {createSlice}  from "@reduxjs/toolkit"
-import { login as Login, logout as Logout } from "../reduxActions/signupLoginActions"
+import { Login,  Logout } from "../reduxActions/signupLoginActions"
+import { AddCategoryToSlice } from "../reduxActions/addCategoryToSlice";
 
 const initialState= {
-    islogin:""
+    islogin:null,
+    reduxCategory:[]
 }
 
 const expenseSlice=  createSlice({
     name:"expenseSliceName",
     initialState,
     reducers:{
-        Login,
-        Logout        
+        
+
+
+        Login: (cstate,action)=>{
+            let {payload:user} = action
+            cstate.islogin = user;
+        },
+        Logout: (cstate,action)=>{
+            // estate.islogin= null;
+            // estate.category=[];
+            console.log("checking logout button working",cstate.islogin);
+            
+            cstate.islogin= null
+        },
+        AddCategoryToSlice ,     
     }
 })
 
@@ -18,11 +33,10 @@ const expenseSlice=  createSlice({
 
 let login= expenseSlice.actions.Login;
 let logout= expenseSlice.actions.Logout;
+let addCategoryToSlice = expenseSlice.actions.AddCategoryToSlice
 
 let red=  expenseSlice.reducer;
-console.log("red");
-//  export default red;
 
  
 
-export {login,logout,red}
+export {login,logout,addCategoryToSlice,red}

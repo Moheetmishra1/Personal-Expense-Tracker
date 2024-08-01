@@ -2,44 +2,56 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import "../CSS/AddExpense.css"
 import { useStateUpdateHook } from '../Helper/useStateUpdate'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
-import CustomeCategory from './Home/CustomeCategory'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../../Redux/React_Slice/expense.reduxSlice'
+import { useNavigate } from 'react-router-dom'
 
 function AddExpense() {
-  let {islogin} = useSelector(store=>store.cart)
+  let {reduxCategory } = useSelector(store=>store.cart)
   let [expense,setExpense] = useStateUpdateHook({amount:"",category:"",date:"",description:""})
   let refAmount =useRef()
   let refCatagory =useRef()
   let refDate =useRef()
   let refDesc =useRef()
-  let cat = useRef("initialCategory")
-
+  let dipatchToLogout= useDispatch()
+  let navToLogin= useNavigate()
 
   let addExpense = async (e)=>{
     e.preventDefault()
 
+
     try{
           if(!expense.category){expense.category="Food"}
-      let {data} =await axios.post("http://localhost:4044/api/v1/addexpense",{...expense,userId:islogin._id})
+      let {data} =await axios.post("http://localhost:4044/api/v1/addexpense",expense,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
+          }
+     } )
+
      if(!data.error){
       refAmount.current.value="";
       refCatagory.current.value=""
       refDate.current.value=""
       refDesc.current.value=""
-     }
+      expense={amount:"",category:"",date:"",description:""}
+     }else{
+      if(data.message=="jwt expired"){
+        dipatchToLogout(logout())
+        sessionStorage.clear()
+        navToLogin("/login")
+        
+      }
+     }   
     }catch(err){
       console.log(err);
     }
   }
-console.log("addexpense");
 
 
   return (
     <>
      <div className='addExpenseBox'>
-
-
-    
 
 <h1 style={{textAlign:"center"}}>Personal Expenses Tracker</h1>
 <form id="expense-form" className='homeForm' onSubmit={addExpense}>
@@ -49,7 +61,7 @@ console.log("addexpense");
   <label htmlFor="category" className='HomeAddExpense'>Category:</label>
   <span><select id="category" className='homeSelect' ref={refCatagory} name="category"  onChange={setExpense}>
          <option    value="">Select a category</option>
-    {islogin.category.map((a,index)=>{
+    {reduxCategory.map((a,index)=>{
       return <option key={index}  value={a}>{a.toUpperCase()}</option>
     })}
     

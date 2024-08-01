@@ -67,7 +67,7 @@ function Signup() {
                     return  errorMessage.current.innerHTML = "Password doesn't match."
 
                 }
-                user.category=["Food","Transportation","Housing","Entertainment"]
+                // user.category=["Food","Transportation","Housing","Entertainment"]
                 let {data} = await axios.post("http://localhost:4044/api/v1/signup",user)
                 if(data.error){
                         errorMessage.current.innerHTML=data.message

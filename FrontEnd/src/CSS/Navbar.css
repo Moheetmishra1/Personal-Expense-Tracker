@@ -20,12 +20,13 @@
    
 }
 .logoutIcon >button{
-    height: 40px;
+    height: 38px;
     width: 100px;
     font-size: 20px;
     border-radius: 5px;
     background-color: rgb(240, 47, 95);
     color: white;
+    border: none;
 }
 
 .navbarBox>a:visited{

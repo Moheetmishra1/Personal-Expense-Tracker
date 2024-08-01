@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+ import React, { useEffect, useRef } from 'react'
 import "../../CSS/Login.css"
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useStateUpdateHook } from '../../Helper/useStateUpdate'
 import { emailCheck, nameCheck, numberCheck, passwordCheck } from '../../validation';
 import {useDispatch} from "react-redux";
 import axios from 'axios';
-import { login } from '../../../Redux/React_Slice/expense.reduxSlice';
+import { addCategoryToSlice, login } from '../../../Redux/React_Slice/expense.reduxSlice';
 
 
 function Login() {
@@ -18,11 +18,9 @@ function Login() {
 
 
   function passwordShow(){
-    if(showPassword.current.type==="password"){
-        showPassword.current.type = "type"
-    }else{
-      showPassword.current.type = "password"
-    }
+
+    (showPassword.current.type==="password" && (showPassword.current.type = "text")) || (showPassword.current.type ="password")
+   
   }
 
   async function sendDetails(e){
@@ -32,6 +30,8 @@ function Login() {
     loginError.current.style="color:red"
 
     let email,mobile,err;
+
+    //^ Set email, mobile and check validation
     if(Number(user.username)){
 
       mobile=user.username
@@ -40,6 +40,7 @@ function Login() {
       email= user.username
       err= emailCheck(email)
     }
+
     if(err){
       return  loginError.current.innerHTML=err
     }
@@ -48,31 +49,47 @@ function Login() {
       return  loginError.current.innerHTML=err
     }
       try{
+        sessionStorage.clear()
         let {data}= await axios.post("http://localhost:4044/api/v1/login",user)
         if(data.error){
           return  loginError.current.innerHTML=data.message
         }else{
         loginError.current.innerHTML="Login successfully"
         loginError.current.style="color:green"
-        
-       await dispatch(login(data.data))
+
+        dispatch(login({email:data.data.email,first:data.data.first,last:data.data.last}))
+        dispatch(addCategoryToSlice(data.data.category))
+
        sessionStorage.setItem("user",JSON.stringify({email:data.data.email,password:user.password}))
-        navToHome("/")
+       sessionStorage.setItem("token",JSON.stringify(data.token))
+        setTimeout(()=>{
+          navToHome("/")
+        },500)  
 
         }
       }catch(err){
         console.log(err);
       }
       } 
-// console.log(user," is login ");
 
 let useEffectLogin = async(session)=>{
   try{
-    console.log(session);
-    let {data} = await axios.post("http://localhost:4044/api/v1/login",{username:session.email,password:session.password})
+    console.log(session," session is");
+    let {data} = await axios.get("http://localhost:4044/api/v1/refreshlogin", {
+      headers: {
+        Authorization: `Bearer ${session}`
+      }
+ })
+ console.log("effect data ", data);
       if(!data.error){
-        dispatch(login(data.data));
+        dispatch(login({email:data.data.email,first:data.data.first,last:data.data.last}));
+        dispatch(addCategoryToSlice(data.data.category));
+        sessionStorage.setItem("user",JSON.stringify({email:data.data.email,password:user.password}))
+        // sessionStorage.setItem("token",JSON.stringify(data.data.token))
+
         navToHome("/")
+      }else{
+        sessionStorage.clear()
       }
 
   }catch(err){
@@ -81,9 +98,11 @@ let useEffectLogin = async(session)=>{
 }
 
 useEffect(()=>{
-  let data = sessionStorage.getItem("user");
-  if(data !== 'undefined'){
-    data =JSON.parse(data);
+  let data = sessionStorage.getItem("token");
+  console.log("data is ",data);
+  if(data ){
+    data = JSON.parse(data);
+    console.log(data , " in normal form");
     useEffectLogin(data)
 
   }
@@ -97,7 +116,7 @@ useEffect(()=>{
   return (
     <div className='loginBox'>
 
-<img className="img-fluid mx-auto d-block mb-5" src="https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/assets/images/elements/bootstrap-logo.svg" alt="" />
+<img className="img-fluid mx-auto d-block mb-5" src="/Images/colorful-bird.png" width={"100px"}  height={"100px"}  alt="" />
 <span  className="loginError"  ref={loginError}></span>
       <div className="loginformBox">
 
@@ -111,7 +130,7 @@ useEffect(()=>{
             <label htmlFor="password">Password</label>
             <input type="password" id='password' name="password"  onChange={setUser} ref={showPassword} />
           </div>
-        <p className="login-remember"><label><input  type="checkbox"  value="forever" onClick={passwordShow} /> show</label></p>
+        <p className="login-remember"><label><input  type="checkbox"  value="forever" onClick={passwordShow} /> show password</label></p>
 
           <button className='loginSubmit' >Submit</button>
         </form>

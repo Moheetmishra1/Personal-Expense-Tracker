@@ -1,9 +1,12 @@
 const express = require("express")
 const router = require("./Roters/tracker.router")
+const asyncWrapper  =  require("express-async-handler")
 const connectToDatabase = require("./Data/data")
 const cors = require("cors")
 require("dotenv").config()
 
+
+asyncWrapper()
 const app = express()
 
 
@@ -12,15 +15,20 @@ app.use(cors())
 app.use("/api/v1",router)
 
 
+
+//! Page not found
+app.all("*",(req,res,next)=>{
+    res.status(404).send("<h1 style='color:red;text-align:center;'>Page not found....</h1>")
+    console.log(req);
+})
+
+//! Server side error
 app.use((err,req,res,next)=>{
     res.status(201).json({error:true,message:err.message});
 })
 
 
-app.all("*",(req,res,next)=>{
-    res.status(404).json({error:true,message:"Page not found."})
-})
-
+//! Connecting to Db and assign the port
 async function connectMongoDb(){
     try{
         await connectToDatabase(process.env.mongodbServerURL)

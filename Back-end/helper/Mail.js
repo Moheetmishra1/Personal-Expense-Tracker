@@ -16,8 +16,8 @@ let subscription = async (email)=>{
     let sendmail = await transport.sendMail({
         from: "moheetmishra.gaya@gmail.com",
         to: email,
-        subject: "Test Meassage",
-        text: "Hello this is text message",
+        subject: "Account created.",
+        text: "Hi congratulation.Your account is successfully created.",
         html:`<h1>Dear ${email.split("@")[0]} </h1>`,
 
         attachments:[ {

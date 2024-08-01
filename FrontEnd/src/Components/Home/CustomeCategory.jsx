@@ -2,10 +2,13 @@ import React, { useRef } from 'react'
 import customCategory from "../../CSS/Home/CustomCategory.module.css"
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import {login} from "../../../Redux/React_Slice/expense.reduxSlice"
+import {addCategoryToSlice, login, logout} from "../../../Redux/React_Slice/expense.reduxSlice"
+import { useNavigate } from 'react-router-dom'
 
-function CustomeCategory({renderingFunction}) {
-  let {islogin} = useSelector(store=>store.cart)
+function CustomeCategory() {
+  let {reduxCategory} = useSelector(store=>store.cart)
+  const dipatchToLogout= useDispatch()
+  let navToLogin= useNavigate()
 
     let inputRef = useRef("custom input value")
     let dispatch = useDispatch()
@@ -17,12 +20,26 @@ function CustomeCategory({renderingFunction}) {
         try{ 
         let cate= inputRef.current.value;
         if(cate){
-            let {data}=await axios.post(`http://localhost:4044/api/v1/updateusercategory/${islogin._id}`,{cate})
-            console.log(data  );
-          inputRef.current.value=""
-          let obj = {...islogin,category:data.data}
-           dispatch(login(obj))
-          renderingFunction()
+            let {data}=await axios.post(`http://localhost:4044/api/v1/updateusercategory/`,{cate}, {
+              headers: {
+                Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
+              }
+         })
+         console.log(data  );
+         if(!data.error){
+     
+            dispatch(addCategoryToSlice([...reduxCategory,cate]))
+            inputRef.current.value=""
+         }else{
+           if(data.message==="jwt expired" || data.message==="jwt malformed"){
+            console.log("enter");
+            sessionStorage.clear()
+            dipatchToLogout(logout())
+
+            navToLogin("/login")
+
+          }
+         }
          
 
         }

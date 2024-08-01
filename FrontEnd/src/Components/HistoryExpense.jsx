@@ -12,7 +12,11 @@ function HistoryExpense() {
 
 let deleteExpense = async (id)=>{
     try{
-        let  data= await axios.delete(`http://localhost:4044/api/v1/deleteexpense/${id}`)
+        let  data= await axios.delete(`http://localhost:4044/api/v1/deleteexpense/${id}`, {
+            headers: {
+              Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
+            }
+       })
         console.log(data);
         setRendering(!rendering)
     }catch(err){
@@ -28,7 +32,11 @@ let updateExpense = async(id)=>{
 }
 
 let fetchHistory = async ()=>{
-    let {data} =await axios.get(`http://localhost:4044/api/v1/allexpenses/${islogin._id}`)
+    let {data} =await axios.get(`http://localhost:4044/api/v1/allexpenses/${islogin._id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
+        }
+   })
     console.log(data.data);
     setHistory(data.data)
 }

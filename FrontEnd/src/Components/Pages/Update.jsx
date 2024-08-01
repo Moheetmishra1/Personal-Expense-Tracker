@@ -1,12 +1,15 @@
 import React, { useEffect, useRef } from 'react'
 import "../../CSS/Home.css"
+import "../../CSS/Update.css"
 import { useNavigate, useParams } from 'react-router-dom'
 import { useStateUpdateHook } from '../../Helper/useStateUpdate'
 import axios from 'axios'
+import clearLoginHistory from '../../Helper/ClearLoginHistory'
 
 function Update() {
   let [expense,setExpense] = useStateUpdateHook({amount:"",category:"",date:"",description:""})
   let navToHistory = useNavigate()
+  let navToLogin= useNavigate()
 
   let refAmount =useRef()
   let refCatagory =useRef()
@@ -14,10 +17,7 @@ function Update() {
   let refDesc =useRef()
 
   
-
-
     let {pid} = useParams()
-    // console.log(pid,"mmmmmmmmm");
     console.log(expense);
 
     let updateExpense= async (e)=>{
@@ -29,15 +29,21 @@ function Update() {
             expense.date=refDate.current.value
             expense.category=refCatagory.current.value
             expense.description=refDesc.current.value
-            console.log(expense);
-            let {data} = await axios.put(`http://localhost:4044/api/v1/updateexpense/${pid}`,expense)
+            if(!expense.category){expense.category="Food"}
+            let {data} = await axios.put(`http://localhost:4044/api/v1/updateexpense/?&q=${pid}`,expense, {
+              headers: {
+                Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
+              }
+         })
             console.log("date check ",data);
             if(!data.error){
+
                 navToHistory("/paymenthistory")
 
+            }else if(data.message==="jwt expired"){
+              clearLoginHistory()
+              navToLogin("/login")
             }
-
-
         }catch(err){
             console.log(err);
         }
@@ -46,15 +52,28 @@ function Update() {
 
     let fetchSingleExpense= async()=>{
         try{
-            let {data} = await axios.get(`http://localhost:4044/api/v1/singleexpense/${pid}`)
-            let {amount,date,category,description}=data.data
+            let {data} = await axios.get(`http://localhost:4044/api/v1/allexpenses/?&q=${pid}`, {
+              headers: {
+                Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
+              }
+         })
+          console.log(data);
+          
+         if(!data.error){
+          let {amount,date,category,description}=data.data
             console.log(amount,date,category,description);
-            // setExpense({amount,category,description})
                     
-        refAmount.current.value=amount
-        refCatagory.current.value=category
-        refDate.current.value=date
-        refDesc.current.value=description
+            refAmount.current.value=amount
+            refCatagory.current.value=category
+            refDate.current.value=date
+            refDesc.current.value=description
+
+         }else if(data.message==="jwt expired"){
+          clearLoginHistory()
+          navToLogin("/login") 
+
+         }
+            
 
 
         }catch(err){
@@ -69,8 +88,8 @@ function Update() {
 
   return (
     <>
+<form className='updateForm' onSubmit={updateExpense}>
 <h1 style={{textAlign:"center"}}>Personal Expenses Tracker</h1>
-<form id="expense-form" className='homeForm' onSubmit={updateExpense}>
   <label htmlFor="amount">Amount:</label>
   <input type="number" className='specialInput' ref={refAmount}   id="amount" name="amount" required onKeyUp={setExpense} />
 

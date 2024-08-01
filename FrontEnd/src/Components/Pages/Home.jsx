@@ -18,7 +18,8 @@ function Home() {
    <>
    <div  className='homeCss'>
 
-
+    
+{/*  */}
 
    <div className='custom-add '>
    <AddExpense  />
@@ -27,7 +28,7 @@ function Home() {
     
   <div className='graphCategory'>  
           <PeriodicExpend />
-     <CustomeCategory newCategory={rendering} renderingFunction={renderingFunction} />
+     <CustomeCategory  />
   </div>
 
 

@@ -1,11 +1,15 @@
-export const login=(estate,action)=>{
-    console.log(action);
+ const Login=(cstate,action)=>{
     let {payload:user} = action
-    estate.islogin = user;
+    cstate.islogin = user;
 }
 
-export const logout= (estate,acton)=>{
-    console.log("out");
-    estate.islogin= "";
+ const Logout= (cstate,action)=>{
+    // estate.islogin= null;
+    // estate.category=[];
+    console.log("checking logout button working",cstate.islogin);
+    
+    cstate= {islogin:null,category:[]}
 }
 
+
+export {Login, Logout}

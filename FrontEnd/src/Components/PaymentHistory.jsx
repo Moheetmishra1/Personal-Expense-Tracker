@@ -3,15 +3,19 @@ import "../CSS/PaymentHistory.css"
 import PaymentHistoryItem from './PaymentHistoryItem'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
+import {logout} from "../../Redux/React_Slice/expense.reduxSlice" 
 import { useNavigate } from 'react-router-dom'
+
 
 function PaymentHistory() {
 
 
-    let {islogin} = useSelector(store=>store.cart)
+    let { reduxCategory} = useSelector(store=>store.cart)
     let [expenseHistory,setHistory] = useState([])
-    let [rendering,setRendering] = useState(true)
     let navToUpdate= useNavigate()
+    let navToLogin= useNavigate()
+  let dipatchToLogout= useDispatch()
+
   let [category,setCategory] = useState("All")
 
   function updateCategory({target:{value}}  ){
@@ -25,32 +29,59 @@ function PaymentHistory() {
 
 let deleteExpense = async (id)=>{
     try{
-        let  data= await axios.delete(`http://localhost:4044/api/v1/deleteexpense/${id}`)
-        setRendering(!rendering)
+        let  {data}= await axios.delete(`http://localhost:4044/api/v1/deleteexpense/?&q=${id}`, {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
+          }
+     })
+     console.log(data);
+     
+        if(!data.error){
+          setHistory(data.data)
+        }else if(data.message==='jwt expired'){
+          sessionStorage.clear()
+         dipatchToLogout(logout())
+          navToLogin("/login")
+        }
     }catch(err){
         console.log(err);
     }
 }
 
-let updateExpense = async(id)=>{
+let updateExpense = async(id)=>{ 
   navToUpdate(`/update/${id}`)
    
 }
 
 let fetchHistory = async ()=>{
-    let {data} =await axios.get(`http://localhost:4044/api/v1/allexpenses/${islogin._id}`)
-    setHistory([...(data.data)])
-    console.log(data.data);
+    let {data} =await axios.get(`http://localhost:4044/api/v1/allexpenses`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
+      }
+ })
+
+ if(!data.error){
+   setHistory([...(data.data)])
+ }else{
+  if(data.message==="jwt expired"){
+    sessionStorage.clear()
+    dipatchToLogout(logout())
+
+    navToLogin("/login")
+
+  }
+ }
 }
 
 useEffect(()=>{
     fetchHistory()
 
-},[rendering])
+},[])
 
 
 
 
+console.log("rendering");
 
 
 
@@ -63,7 +94,7 @@ useEffect(()=>{
       <select name="categoryList"  onChange={updateCategory}>
       <option value="All">All</option>
 
-        {islogin.category.map((a,index)=>{
+        {reduxCategory.map((a,index)=>{
          return  <option key={index} value={a} style={{width:"80px"}}>{a}</option>
         })}
       </select>

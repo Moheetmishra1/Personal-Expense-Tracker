@@ -11,9 +11,8 @@ function Authentication({children}) {
             {children}
         </>
     }
-    else {
-        return <Navigate to="/login" />
-    }
+    
+    return <Navigate to="/login" />
 
 
 }

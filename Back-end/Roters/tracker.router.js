@@ -1,21 +1,41 @@
 const express= require("express")
-const {loginToAccount,createAccount, updateUser, updateUserCategory, getUserDeatil, getUserDetail} = require("../controllers/trackerController.controller");
+const {loginToAccount,createAccount, updateUser, updateUserCategory, getUserDeatil, getUserDetail, refreshLogin} = require("../controllers/trackerController.controller");
 const { addExpense, AllExpenses, updateExpense, deleteExpense ,getQuery, singleExpense, today, month} = require("../controllers/Expense.controler");
+const auth = require("../helper/Autho");
+const { loginAuth } = require("./loginAuth");
 
 let router = express.Router()
 
+router.post("/signup",createAccount);
 router.post("/login",loginToAccount);
-router.post("/signup",(q,w,e)=>{console.log("go");e();},createAccount);
-router.post("/updateusercategory/:id",updateUserCategory)
-router.get("/getuserdetail/:id",getUserDetail)
-router.post("/addexpense",addExpense)
-router.get("/allexpenses/:userid",AllExpenses)
-router.put("/updateexpense/:id",updateExpense);
-router.delete("/deleteexpense/:id",deleteExpense)
-router.get("/home",getQuery)
-router.get("/singleexpense/:pid",singleExpense)
-router.get("/today/:id",today)
-router.get("/query",month)
+router.get("/login",auth,);
+router.get("/getuserdetail/:id",getUserDetail);
+router.get("/refreshlogin",loginAuth,refreshLogin);
+
+// //! Crud operations  
+router.post("/addexpense",auth,addExpense)                                //^.....................................
+router.get("/allexpenses/",auth,AllExpenses)                //        //^............................
+router.put("/updateexpense",auth,updateExpense);                      //^..........................
+router.delete("/deleteexpense",auth,deleteExpense)                     //^..............
+// //! crud Opertions end......
+
+
+router.post("/updateusercategory",auth,updateUserCategory)          //^...................
+// router.get("/singleexpense/:pid",auth,singleExpense)                        //^.........................
+
+
+
+
+
+
+
+
+//! Crud operations  
+// router.delete("/deleteexpense/:id",deleteExpense)                     //^..............
+//! crud Opertions end......
+
+
+// router.get("/singleexpense/:pid",singleExpense)                        //^.........................
 
 
 

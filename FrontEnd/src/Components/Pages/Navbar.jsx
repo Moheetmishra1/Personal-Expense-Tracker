@@ -14,7 +14,7 @@ function Navbar() {
 
   return (
     <div className='navbarBox'>
-
+        <img src="/Images/colorful-bird.png" alt="no"  width={"50px"} height={"80%"}/>
        {islogin &&  <NavLink to="/">Home</NavLink>}
        {!islogin && <NavLink to="/login">Login</NavLink>}
        {!islogin && <NavLink to="/signup">Signup</NavLink>}
@@ -22,14 +22,10 @@ function Navbar() {
 
         {islogin && <div className="logoutIcon">
             
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" style={{borderRadius:"100%"}} />
-            <button  className='logout' onClick={()=>{console.log("start");sessionStorage.clear();  dispatchLogout(logout())}}>  Sign Out </button>
+            <img src="Images/photographer.jpg" alt="mdo" width="32" height="32" style={{borderRadius:"100%",boxShadow:"1px 1px 4px black"}} />
+            <button  className='logout' onClick={()=>{sessionStorage.clear();  dispatchLogout(logout())}}>  Sign Out </button>
             
-
-            {/* <button href="sign-up.html" class="btn btn-sm btn-light mb-0"><i class="bi bi-person-circle me-1"></i>Sign up</button> */}
-
-
-        </div>}
+                </div>}
     </div>
    
   )
