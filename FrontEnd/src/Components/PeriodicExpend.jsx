@@ -1,10 +1,5 @@
 
 
-
-
-
-
-
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,14 +20,6 @@ function PeriodicExpend() {
   let endDate = useRef()
 
 
-  
-  useEffect(()=>{
-    dayMonthly("monthly")
-  },[])
-  
-
-  
-
   const processExpenses = () => {
     const categoriesData = {};
     Allexpense.forEach(expense => {
@@ -42,6 +29,7 @@ function PeriodicExpend() {
       categoriesData[expense.category] += expense.amount;
     });
     setCategories(categoriesData);
+
   };
 
 
@@ -52,9 +40,7 @@ function PeriodicExpend() {
           Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
         }
    });
-      console.log(data);
       if(!data.error){
-      // setGraph(!graphChange)
 
 
       setAllExpense(data.data);
@@ -73,6 +59,7 @@ function PeriodicExpend() {
   };
 
 
+console.log("rendering");
 
   const rangeDate= async (e)=>{
     e.preventDefault()
@@ -90,7 +77,6 @@ function PeriodicExpend() {
      });
 
      if(!data.error){
-      // setGraph(!graphChange)
 
 
       setAllExpense(data.data);
@@ -102,14 +88,17 @@ function PeriodicExpend() {
         navToLogin("/login")
 
       }
-       
-
-
     }catch(err){
         console.log(err);
     }
+
   }
 
+  
+  useEffect(()=>{
+    dayMonthly("monthly")
+  },[])
+  
 
   return (
     <div className='dataAnalysistBox'>

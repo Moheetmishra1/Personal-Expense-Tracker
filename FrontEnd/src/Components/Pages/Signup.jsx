@@ -167,7 +167,7 @@ function Signup() {
                                     <label htmlFor="male" style={{paddingRight:"5px"}}>Male</label>
                                     <input type="radio" name="gender" id='male' value="male"  onClick={update} />
                                 </span>
-                                <span className="badge d-flex p-3 align-items-center text-primary-emphasis bg-primary-subtle rounded-pill">
+                                <span className="badge d-flex p-3 align-items-center text-primary-emphasis bg-danger-subtle rounded-pill">
                                     <label htmlFor="female" style={{paddingRight:"5px"}}>Female</label>
                                     <input type="radio" name="gender" id='female' value="female"  onClick={update} />
                                 </span>

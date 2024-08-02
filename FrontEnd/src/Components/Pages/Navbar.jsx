@@ -14,7 +14,9 @@ function Navbar() {
 
   return (
     <div className='navbarBox'>
-        <img src="/Images/colorful-bird.png" alt="no"  width={"50px"} height={"80%"}/>
+      <div>        <img src="/Images/colorful-bird.png" alt="no"  width={"50px"} height={"80%"}/> <NavLink to="/" style={{color:"white"}}>Expense Daily</NavLink>
+      </div>
+
        {islogin &&  <NavLink to="/">Home</NavLink>}
        {!islogin && <NavLink to="/login">Login</NavLink>}
        {!islogin && <NavLink to="/signup">Signup</NavLink>}

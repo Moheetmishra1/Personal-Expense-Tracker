@@ -1,6 +1,6 @@
 let {Schema,model, default: mongoose} = require("mongoose")
 
-let ExpenseSchema= Schema(
+let ExpenseSchema= new Schema(
     {
         userId: { type: mongoose.Schema.Types.ObjectId, ref: 'userSchema' },
         date: { type: String },

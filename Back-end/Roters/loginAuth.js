@@ -1,5 +1,5 @@
 const jwt = require( "jsonwebtoken");
-// const userShema = require("../Models/USerSchema.model")
+
 require("dotenv").config()
 
 let loginAuth =  async (req,res,next)=>{

@@ -53,7 +53,7 @@ function CustomeCategory() {
     
     <div className={customCategory.customCategory}><h2>Add Custom Category</h2>
     
-    <form onSubmit={addCategory}>  <input type="text" ref={inputRef}  /><input type='submit' className={customCategory.submit} /></form>
+    <form onSubmit={addCategory}>  <input type="text" ref={inputRef} style={{textTransform:"capitalize"}}  /><input type='submit' className={customCategory.submit} /></form>
       </div>
   )
 }

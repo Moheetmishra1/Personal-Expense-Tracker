@@ -64,7 +64,7 @@
     background-position: 50% 80%;
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
-    background-clip:calc();
+    background-clip:text;
 }
 
 .signName>div{
@@ -92,7 +92,7 @@
 
 .oninput{
     position: absolute;
-    font-size: 10px;
+    font-size: 15px;
     left: 19px;
     top: -6px;
     background-color: rgba(255, 255, 255, 0.059);
@@ -123,7 +123,7 @@
     width: 25%;
     position: absolute;
     z-index: 2;
-    left: 20%;
+    left: 2%;
     background-image: url("../assets/Images/3d-render-online-payment-transaction-security.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;

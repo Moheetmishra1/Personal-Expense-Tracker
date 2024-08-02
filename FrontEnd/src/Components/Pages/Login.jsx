@@ -80,7 +80,6 @@ let useEffectLogin = async(session)=>{
         Authorization: `Bearer ${session}`
       }
  })
- console.log("effect data ", data);
       if(!data.error){
         dispatch(login({email:data.data.email,first:data.data.first,last:data.data.last}));
         dispatch(addCategoryToSlice(data.data.category));
@@ -99,10 +98,8 @@ let useEffectLogin = async(session)=>{
 
 useEffect(()=>{
   let data = sessionStorage.getItem("token");
-  console.log("data is ",data);
   if(data ){
     data = JSON.parse(data);
-    console.log(data , " in normal form");
     useEffectLogin(data)
 
   }
@@ -123,7 +120,7 @@ useEffect(()=>{
         <form action="POST"  className='loginForm'  onSubmit={sendDetails} >
           <div>
           <label htmlFor="username">Username</label>
-          <input type="text" id="username" name="username"  onChange={setUser}  />
+          <input type="text" id="username" name="username"  onChange={setUser} placeholder='Email/mobile'  />
           </div>
 
           <div>

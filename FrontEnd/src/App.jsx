@@ -1,11 +1,9 @@
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './Components/Pages/Navbar'
-// import Home from './Components/Pages/Home'
 import Login from './Components/Pages/Login'
 import Signup from './Components/Pages/Signup'
 import Authentication from './Components/Authentication'
-// import PaymentHistory from './Components/PaymentHistory'
 import Update from './Components/Pages/Update'
 import React, { Suspense } from 'react'
 
@@ -15,8 +13,6 @@ let LazyPaymentHistory= React.lazy(()=>import("./Components/PaymentHistory"))
 
 function App() {
   
-
-
 
   return (
     <>

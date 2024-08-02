@@ -33,7 +33,6 @@ const addExpense= async (req,res,next)=>{
 let AllExpenses= async (req,res,next)=>{
     let {filter,field,q} = req.query
     let id=q;
-    console.log(q);
     
     
     let obj  = await USerSchemaModel.findOne({email:req.user.email});
@@ -46,8 +45,7 @@ let AllExpenses= async (req,res,next)=>{
     let expenses;
     if(filter ==="today"){
         expenses = await ExpenseSchema.find({
-            date: today
-            ,
+            date: today  ,
           userId:obj._id});
        
 
@@ -59,12 +57,10 @@ let AllExpenses= async (req,res,next)=>{
 
 
         expenses = await ExpenseSchema.find({
-            date: {
-               
+            date: { 
                 $gte:firstDay,
                 $lte:lastDay
-            }
-            ,
+            }   ,
           userId:obj._id});
 
     }
@@ -84,9 +80,7 @@ let AllExpenses= async (req,res,next)=>{
     }
 
     if(id){
-        expenses= await ExpenseSchema.findById(id)
-        console.log(expenses);
-        
+        expenses= await ExpenseSchema.findById(id)        
     }
 
 
@@ -100,23 +94,6 @@ let AllExpenses= async (req,res,next)=>{
         res.status(201).json({error:true,message:"Sending the list"})
         
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }else{
     res.status(201).json({error:true,message:"User not exist"})
@@ -164,84 +141,11 @@ let deleteExpense= async (req,res,next)=>{
   
 }
 
-let singleExpense = async(req,res,next)=>{
-    
-        let {pid}=req.params
-        let obj =await ExpenseSchema.findById(pid)
-        if(obj){
-            res.status(201).json({error:false,message:"Expense Found.",data:obj})
-        }else{
-            res.status(201).json({error:true,message:"Expense not found."})
-        }
-}
-
-// let month= async(req,res,next)=>{
-//         let {filter,q,start,end} = req.query
-//         // let {q} 
-//         let today = new Date();
-//         today=today.toISOString().slice(0,10)
-//         let expenses;
-//         if(filter ==="today"){
-//             expenses = await ExpenseSchema.find({
-//                 date: today
-//                 ,
-//               userId:q});
-//         }
-//         if(filter=="month"){
-//             let month= today.slice(0,8)+"01"
-//           console.log(month);
-
-//             expenses = await ExpenseSchema.find({
-//                 date: {
-//                     $lte:today,
-//                     $gte:month
-//                 }
-//                 ,
-//               userId:q});
-//         }
-//         if(start&&end){
-//             expenses = await ExpenseSchema.find({
-//                 date: {
-//                     $lte:end,
-//                     $gte:start
-//                 }
-//                 ,
-//               userId:q});
-//         }
-//         if(expenses){
-//             res.status(201).json({error:false,message:"Sending the list",data:expenses})
-//         }else{
-//             res.status(201).json({error:true,message:"Sending the list"})
-            
-//         }
-// }
 
 
-// let today= async( req,res,next)=>{
-    
-//         let {id}= req.params
-//         let today = new Date();
-//         today=today.toISOString().slice(0,10)
-   
-//         const expenses = await ExpenseSchema.find({
-//             date: today
-//             ,
-//           userId:id});
-//         if(expenses){
-//             res.status(201).json({error:false,message:"Sending the list",data:expenses})
-//         }else{
-//             res.status(201).json({error:true,message:"Sending the list"})
-            
-//         }
-      
-
-// }
 
 
 exports.addExpense= addExpense
 exports.AllExpenses= AllExpenses
 exports.updateExpense=updateExpense
 exports.deleteExpense=deleteExpense
-exports.singleExpense=singleExpense
-// exports.today=today
-// exports.month=month

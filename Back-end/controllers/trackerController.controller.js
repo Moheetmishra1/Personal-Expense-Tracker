@@ -93,9 +93,6 @@ const createAccount = async (req,res,next)=>{
 }
 
 let updateUserCategory= async(req,res,next)=>{
-
-
-        // let {id} = req.params;
         console.log("enter update use category");
         let obj = await userSchema.findOne({email:req.user.email})
         if(obj){
@@ -111,17 +108,5 @@ let updateUserCategory= async(req,res,next)=>{
 }
 
 
-let getUserDetail = async(req,res,next)=>{
 
-        let {id}= req.params;
-
-        let obj = await userSchema.findById(id)
-        if(obj){
-            res.status(201).json({error:false,message:"User is exist",data:obj})
-        }else{
-            res.status(202).json({error:true,message:"User is not exist"});
-        }
-
-}
-
-module.exports= {loginToAccount,createAccount,updateUserCategory,getUserDetail,refreshLogin}
+module.exports= {loginToAccount,createAccount,updateUserCategory,refreshLogin}

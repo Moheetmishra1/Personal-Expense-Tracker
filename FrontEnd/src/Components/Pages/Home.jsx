@@ -18,9 +18,6 @@ function Home() {
    <>
    <div  className='homeCss'>
 
-    
-{/*  */}
-
    <div className='custom-add '>
    <AddExpense  />
   </div>
