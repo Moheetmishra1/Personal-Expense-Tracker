@@ -64,7 +64,6 @@ function Login() {
         dispatch(login({email:data.data.email,first:data.data.first,last:data.data.last}))
         dispatch(addCategoryToSlice(data.data.category))
 
-      //  sessionStorage.setItem("user",JSON.stringify({email:data.data.email,password:user.password}))
        sessionStorage.setItem("token",JSON.stringify(data.token))
         setTimeout(()=>{
           navToHome("/")
@@ -89,7 +88,6 @@ let useEffectLogin = async(session)=>{
         dispatch(login({email:data.data.email,first:data.data.first,last:data.data.last}));
         dispatch(addCategoryToSlice(data.data.category));
         sessionStorage.setItem("user",JSON.stringify({email:data.data.email,password:user.password}))
-        // sessionStorage.setItem("token",JSON.stringify(data.data.token))
 
         navToHome("/")
       }else{

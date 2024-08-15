@@ -1,4 +1,4 @@
-import React, { useReducer, useRef, useState } from 'react'
+import React, {  useRef, useState } from 'react'
 import "../../CSS/Signup.css"
 import InputComponent from '../InputComponent'
 import ButtonComponent from '../ButtonComponent'
@@ -6,10 +6,8 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import {numberCheck,emailCheck,nameCheck,passwordCheck} from "../../validation"
 import { errorHandlerInput } from '../../Helper/ErrorHandler'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
 
 function Signup() {
-    // let {islogin} = useSelector(store=>store.cart);
     let [user,setUser] = useState({first:"",last:"", email:"",mobile:"",password:"",confirmPassword:"",dob:"",gender:""})
     let refFirst = useRef()
     let refLast = useRef()
@@ -71,7 +69,6 @@ function Signup() {
                 let {data} = await axios.post("https://personal-expense-tracker-a2i1.onrender.com/api/v1/signup",user)
                 if(data.error){
                         errorMessage.current.innerHTML=data.message
-                        // errorMessage.current.style="color:green;"
                 }else{
                         errorMessage.current.innerHTML=data.message
                         errorMessage.current.style="color:green;"

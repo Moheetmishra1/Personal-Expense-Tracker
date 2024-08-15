@@ -24,7 +24,6 @@ function Update() {
         e.preventDefault()
 
         try{
-            // console.log(expense);
             expense.amount= refAmount.current.value
             expense.date=refDate.current.value
             expense.category=refCatagory.current.value
@@ -35,7 +34,6 @@ function Update() {
                 Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
               }
          })
-            console.log("date check ",data);
             if(!data.error){
 
                 navToHistory("/paymenthistory")

@@ -80,11 +80,6 @@ function AddExpense() {
 
 
 
-{/* <section id="expense-list">
-  <ul id="expenses">
-  </ul>
-</section> */}
-
   </div>
      
     </>
