@@ -23,8 +23,11 @@ function Login() {
    
   }
 
+  
   async function sendDetails(e){
     e.preventDefault()
+    console.log("Enter");
+    
 
     loginError.current.innerHTML=""
     loginError.current.style="color:red"
@@ -51,6 +54,7 @@ function Login() {
       try{
         sessionStorage.clear()
         let {data}= await axios.post("https://personal-expense-tracker-a2i1.onrender.com/api/v1/login",user)
+
         if(data.error){
           return  loginError.current.innerHTML=data.message
         }else{
@@ -80,6 +84,7 @@ let useEffectLogin = async(session)=>{
         Authorization: `Bearer ${session}`
       }
  })
+ 
       if(!data.error){
         dispatch(login({email:data.data.email,first:data.data.first,last:data.data.last}));
         dispatch(addCategoryToSlice(data.data.category));
