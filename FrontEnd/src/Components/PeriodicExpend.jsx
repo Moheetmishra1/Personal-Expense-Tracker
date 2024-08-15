@@ -35,7 +35,7 @@ function PeriodicExpend() {
 
   const dayMonthly = async (day) => {
     try {
-      const { data } = await axios.get(`http://localhost:4044/api/v1/allexpenses/?&filter=${day}`, {
+      const { data } = await axios.get(`https://personal-expense-tracker-a2i1.onrender.com/api/v1/allexpenses/?&filter=${day}`, {
         headers: {
           Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
         }
@@ -59,7 +59,6 @@ function PeriodicExpend() {
   };
 
 
-console.log("rendering");
 
   const rangeDate= async (e)=>{
     e.preventDefault()
@@ -70,7 +69,7 @@ console.log("rendering");
 
     try{
 
-        const { data } = await axios.get(`http://localhost:4044/api/v1/allexpenses/?field=${startDate.current.value},${endDate.current.value}`, {
+        const { data } = await axios.get(`https://personal-expense-tracker-a2i1.onrender.com/api/v1/allexpenses/?field=${startDate.current.value},${endDate.current.value}`, {
           headers: {
             Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
           }

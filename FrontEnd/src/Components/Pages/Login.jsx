@@ -50,7 +50,7 @@ function Login() {
     }
       try{
         sessionStorage.clear()
-        let {data}= await axios.post("http://localhost:4044/api/v1/login",user)
+        let {data}= await axios.post("https://personal-expense-tracker-a2i1.onrender.com/api/v1/login",user)
         if(data.error){
           return  loginError.current.innerHTML=data.message
         }else{
@@ -75,7 +75,7 @@ function Login() {
 let useEffectLogin = async(session)=>{
   try{
     console.log(session," session is");
-    let {data} = await axios.get("http://localhost:4044/api/v1/refreshlogin", {
+    let {data} = await axios.get("https://personal-expense-tracker-a2i1.onrender.com/api/v1/refreshlogin", {
       headers: {
         Authorization: `Bearer ${session}`
       }

@@ -12,7 +12,7 @@ function HistoryExpense() {
 
 let deleteExpense = async (id)=>{
     try{
-        let  data= await axios.delete(`http://localhost:4044/api/v1/deleteexpense/${id}`, {
+        let  data= await axios.delete(`https://personal-expense-tracker-a2i1.onrender.com/api/v1/deleteexpense/${id}`, {
             headers: {
               Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
             }
@@ -32,7 +32,7 @@ let updateExpense = async(id)=>{
 }
 
 let fetchHistory = async ()=>{
-    let {data} =await axios.get(`http://localhost:4044/api/v1/allexpenses/${islogin._id}`, {
+    let {data} =await axios.get(`https://personal-expense-tracker-a2i1.onrender.com/api/v1/allexpenses/${islogin._id}`, {
         headers: {
           Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
         }

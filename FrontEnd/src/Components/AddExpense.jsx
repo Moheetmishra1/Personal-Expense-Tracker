@@ -22,7 +22,7 @@ function AddExpense() {
 
     try{
           if(!expense.category){expense.category="Food"}
-      let {data} =await axios.post("http://localhost:4044/api/v1/addexpense",expense,
+      let {data} =await axios.post("https://personal-expense-tracker-a2i1.onrender.com/api/v1/addexpense",expense,
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`

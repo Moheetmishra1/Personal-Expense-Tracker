@@ -30,7 +30,7 @@ function Update() {
             expense.category=refCatagory.current.value
             expense.description=refDesc.current.value
             if(!expense.category){expense.category="Food"}
-            let {data} = await axios.put(`http://localhost:4044/api/v1/updateexpense/?&q=${pid}`,expense, {
+            let {data} = await axios.put(`https://personal-expense-tracker-a2i1.onrender.com/api/v1/updateexpense/?&q=${pid}`,expense, {
               headers: {
                 Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
               }
@@ -52,7 +52,7 @@ function Update() {
 
     let fetchSingleExpense= async()=>{
         try{
-            let {data} = await axios.get(`http://localhost:4044/api/v1/allexpenses/?&q=${pid}`, {
+            let {data} = await axios.get(`https://personal-expense-tracker-a2i1.onrender.com/api/v1/allexpenses/?&q=${pid}`, {
               headers: {
                 Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
               }

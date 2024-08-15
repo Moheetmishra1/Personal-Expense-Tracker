@@ -68,7 +68,7 @@ function Signup() {
 
                 }
                 // user.category=["Food","Transportation","Housing","Entertainment"]
-                let {data} = await axios.post("http://localhost:4044/api/v1/signup",user)
+                let {data} = await axios.post("https://personal-expense-tracker-a2i1.onrender.com/api/v1/signup",user)
                 if(data.error){
                         errorMessage.current.innerHTML=data.message
                         // errorMessage.current.style="color:green;"

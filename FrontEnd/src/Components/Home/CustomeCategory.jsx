@@ -20,7 +20,7 @@ function CustomeCategory() {
         try{ 
         let cate= inputRef.current.value;
         if(cate){
-            let {data}=await axios.post(`http://localhost:4044/api/v1/updateusercategory/`,{cate}, {
+            let {data}=await axios.post(`https://personal-expense-tracker-a2i1.onrender.com/api/v1/updateusercategory/`,{cate}, {
               headers: {
                 Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`
               }
