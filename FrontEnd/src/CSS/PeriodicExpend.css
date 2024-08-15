@@ -1,10 +1,18 @@
 .expenses-graph {
-    max-width: 800px;
+    /* max-width: 800px; */
     margin: 40px auto;
+    margin-left: 2em;
     padding: 20px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgb(149, 220, 27);
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+
   }
   
   .expenses-graph h1 {
@@ -27,8 +35,12 @@
   }
 
   .dataAnalysistBox{
-    width: 100px;
+  /* border: 1px solid rgb(229, 13, 175); */
+    
+    /* width: 100px; */
     padding: 5px;
+    margin-top: 10vh;
+
     display: grid;
     grid-template-columns: 2fr 1fr;
     justify-content: center;

@@ -114,8 +114,8 @@ useEffect(()=>{
     <div className='loginBox'>
 
 <img className="img-fluid mx-auto d-block mb-5" src="/Images/colorful-bird.png" width={"100px"}  height={"100px"}  alt="" />
-<span  className="loginError"  ref={loginError}></span>
       <div className="loginformBox">
+      <span  className="loginError"  ref={loginError}></span>
 
         <form action="POST"  className='loginForm'  onSubmit={sendDetails} >
           <div>

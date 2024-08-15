@@ -21,10 +21,12 @@ const loginToAccount = async (req,res,next)=>{
     if(err){
        return  res.send(201).json({error:true,message:err})
     }
+    
         let obj  = await userSchema.findOne({$or:[{email},{mobile}]});
        
     if(obj){
         let check =  await decryptPassword(password,obj.password) 
+        console.log("obj finded");
         
         let token = jwt.sign({email:obj.email,first:obj.first,last: obj.last},process.env.Auth_Secret_Key,{expiresIn:"10m"})       
         check ?   res.status(200).json({error:false,message:"Authentication matched.",token,data:{email:obj.email,first:obj.first,last:obj.last,category:obj.category}}) :   res.status(200).json({error:true,message:"Password is incorrect."});
@@ -74,7 +76,6 @@ const createAccount = async (req,res,next)=>{
     confirmPassword= confirmPassword.trim()
     gender= gender.trim()
     dob= dob.trim()
-        console.log("it is reading?");
 
         let user= await userSchema.findOne({$or:[{email},{mobile}]});
         console.log("email in createfile",user);
@@ -87,7 +88,7 @@ const createAccount = async (req,res,next)=>{
         // let category=["Food","Transportation","Housing","Entertainment"]
         user = await userSchema.create({first,last, password:hash,email,mobile,dob,gender})
         res.json({error:false,message:"User's account created."})
-        subscription(email)
+        // subscription(email)
 
 
 }

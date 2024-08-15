@@ -100,6 +100,8 @@ console.log("rendering");
       </select>
       </div>
 
+      <div className="allexpenseDetails">
+
     {expenseHistory.filter((a)=>{return category==="All"?true:category===a.category}).map((payment) => (
     (  <PaymentHistoryItem
         key={payment._id} 
@@ -112,6 +114,7 @@ console.log("rendering");
 
       />)
     ))}
+    </div>
   </div>
   )
 }

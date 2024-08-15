@@ -1,16 +1,19 @@
 .addExpenseBox{
   padding: 20px;
+  margin-top: 5vh;
+  max-width: 500px;
+  /* border: 1px solid rgb(240, 87, 16); */
  
 }
 
   .homeForm {
-    /* width: 400px; */
-    padding: 20px;
+    /* padding: 20px; */
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 10px;
-    /* border: 10px solid black; */
-    margin: 10px auto;
+    margin: 0px auto;
+  /* border: 1px solid black; */
+
   }
   
   .HomeAddExpense{

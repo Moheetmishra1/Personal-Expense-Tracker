@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, {  useRef} from 'react'
 import "../CSS/AddExpense.css"
 import { useStateUpdateHook } from '../Helper/useStateUpdate'
 import axios from 'axios'
@@ -80,10 +80,10 @@ function AddExpense() {
 
 
 
-<section id="expense-list">
+{/* <section id="expense-list">
   <ul id="expenses">
   </ul>
-</section>
+</section> */}
 
   </div>
      

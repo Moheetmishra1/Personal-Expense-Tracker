@@ -3,7 +3,7 @@ let {Schema,model, default: mongoose} = require("mongoose")
 let ExpenseSchema= new Schema(
     {
         userId: { type: mongoose.Schema.Types.ObjectId, ref: 'userSchema' },
-        date: { type: String },
+        date: { type: String }, 
         amount: { type: Number },
         description: { type: String },
         category:{
