@@ -1,8 +1,8 @@
-// const { find } = require("../Models/USerSchema.model");
+// const { find } = require("../Models/userSchemaTracker.model");
 const {numberCheck,emailCheck,nameCheck,passwordCheck} = require("../validation")
 const encryptPassword= require("../helper/encryption/hashPassword.encrypt");
 const decryptPassword = require("../helper/encryption/decryptPassword.encrypt");
-const userSchema= require("../Models/USerSchema.model");
+const userSchemaTracker= require("../Models/userSchemaTracker.model");
 const subscription = require("../helper/Mail");
 const  jwt= require("jsonwebtoken")
 
@@ -22,7 +22,7 @@ const loginToAccount = async (req,res,next)=>{
        return  res.send(201).json({error:true,message:err})
     }
     
-        let obj  = await userSchema.findOne({$or:[{email},{mobile}]});
+        let obj  = await userSchemaTracker.findOne({$or:[{email},{mobile}]});
        
     if(obj){
         let check =  await decryptPassword(password,obj.password) 
@@ -39,7 +39,7 @@ const loginToAccount = async (req,res,next)=>{
 const refreshLogin = async (req,res)=>{ 
 
     let {email} = req.user;
-    let obj = await userSchema.findOne({email})
+    let obj = await userSchemaTracker.findOne({email})
     if(obj)
     {
         res.status(201).json({error:false,meassage:"Already login",data:{first:obj.first,last:obj.last,email:obj.email,category:obj.category}})
@@ -77,7 +77,7 @@ const createAccount = async (req,res,next)=>{
     gender= gender.trim()
     dob= dob.trim()
 
-        let user= await userSchema.findOne({$or:[{email},{mobile}]});
+        let user= await userSchemaTracker.findOne({$or:[{email},{mobile}]});
         console.log("email in createfile",user);
         if(user){
             return res.status(200).json({error:true,message:"Mobile or email already exist."})
@@ -86,7 +86,7 @@ const createAccount = async (req,res,next)=>{
         const hash= await encryptPassword(password)
         
         // let category=["Food","Transportation","Housing","Entertainment"]
-        user = await userSchema.create({first,last, password:hash,email,mobile,dob,gender})
+        user = await userSchemaTracker.create({first,last, password:hash,email,mobile,dob,gender})
         res.json({error:false,message:"User's account created."})
         // subscription(email)
 
@@ -95,9 +95,9 @@ const createAccount = async (req,res,next)=>{
 
 let updateUserCategory= async(req,res,next)=>{
         console.log("enter update use category");
-        let obj = await userSchema.findOne({email:req.user.email})
+        let obj = await userSchemaTracker.findOne({email:req.user.email})
         if(obj){
-            let data = await userSchema.findByIdAndUpdate(obj._id,{$set:{category:[...obj.category,req.body.cate.toUpperCase()]}})
+            let data = await userSchemaTracker.findByIdAndUpdate(obj._id,{$set:{category:[...obj.category,req.body.cate.toUpperCase()]}})
             //^ data return older object's data....
             res.status(201).json({error:false,message:"Update the change",data:[...obj.category,req.body.cate]})
         }

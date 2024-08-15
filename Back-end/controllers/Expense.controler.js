@@ -1,6 +1,6 @@
 const { amountCheck } = require("../expenseValidation");
 const { ExpenseSchema } = require("../Models/ExpenseSchema.model");
-const USerSchemaModel = require("../Models/USerSchema.model");
+const userSchemaTrackerModel = require("../Models/userSchemaTracker.model");
 
 const addExpense= async (req,res,next)=>{
     let {amount,date,description,category}=req.body;
@@ -15,7 +15,7 @@ const addExpense= async (req,res,next)=>{
     if(!category){
         category="Food"
     }
-        let obj =await  USerSchemaModel.findOne({email:req.user.email})
+        let obj =await  userSchemaTrackerModel.findOne({email:req.user.email})
         if(obj){
             let data = await ExpenseSchema.create({userId:obj._id ,amount,description,category,date})
                  res.status(201).json({error:false,message:"expense store successfully",data:data})
@@ -35,7 +35,7 @@ let AllExpenses= async (req,res,next)=>{
     let id=q;
     
     
-    let obj  = await USerSchemaModel.findOne({email:req.user.email});
+    let obj  = await userSchemaTrackerModel.findOne({email:req.user.email});
    
     if(obj){
 
