@@ -12,7 +12,7 @@ let transport = createTransport({
 let subscription = async (email)=>{
     console.log(email);
     let sendmail = await transport.sendMail({
-        from: "moheetmishra.gaya@gmail.com",
+        from: "Enter_email",
         to: email,
         subject: "Account created.",
         text: "Hi congratulation.Your account is successfully created.",
