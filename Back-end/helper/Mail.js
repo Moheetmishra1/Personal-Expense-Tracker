@@ -1,10 +1,10 @@
 let {createTransport} = require("nodemailer")
 
 let transport = createTransport({
-    service:"gmail",
+    service: "gmail",
     auth:{
-        user:"moheetmishra.gaya@gmail.com",
-        pass:"pattwzbygxyptadw"
+        user: "Enter_Eail",
+        pass: "Enter_passcode"
     }
 })
 
